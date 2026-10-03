@@ -2,47 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>IELTS Centers Lead Mapping - 5km Radius (Dhanmondi & Panthapath)</title>
+  <title>IELTS & Language Centers Lead Map - 5km Radius (Dhanmondi / Panthapath)</title>
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background:#f6f8fa; margin:0; padding:24px; color:#24292e; }
-    .container { max-width: 1400px; margin: 0 auto; background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background:#f6f8fa; margin:0; padding:24px; color:#24292e; }
+    .container { max-width: 1440px; margin: 0 auto; background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
     .header { display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #e1e4e8; padding-bottom: 16px; margin-bottom: 20px; }
     .stats-row { display: flex; gap: 16px; margin-bottom: 20px; }
     .stat-card { flex: 1; background: #f1f8ff; border: 1px solid #c8e1ff; padding: 14px 18px; border-radius: 6px; }
     .stat-card h3 { margin: 0; font-size: 1.6rem; color: #0366d6; }
     .stat-card p { margin: 4px 0 0; font-size: 0.85rem; color: #586069; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .filter-bar { margin-bottom: 16px; display: flex; justify-content:space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .filter-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-btn { background: #fff; border: 1px solid #d0d7de; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.82rem; font-weight: 500; transition: all 0.2s; }
+    .filter-btn:hover { background: #f3f4f6; }
+    .filter-btn.active { background: #0366d6; color: #fff; border-color: #0366d6; }
+    .search-input { padding: 7px 12px; border: 1px solid #d0d7de; border-radius: 6px; font-size: 0.85rem; width: 240px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
     th, td { padding: 12px 14px; border-bottom: 1px solid #e1e4e8; text-align: left; vertical-align: middle; }
-    th { background: #fafbfc; color: #586069; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
-    tr:hover { background: #f6f8fa; }
+    th { background: #fafbfc; color: #586069; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    tr:hover { background: #fbfcfe; }
     .badge-zone { display: inline-block; background: #e1e4e8; color: #24292e; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
-    .btn-wa { display: inline-block; background: #25D366; color: #fff; text-decoration: none; padding: 8px 14px; border-radius: 20px; font-weight: 600; font-size: 0.82rem; }
+    .btn-wa { display: inline-block; background: #25D366; color: #fff; text-decoration: none; padding: 8px 14px; border-radius: 20px; font-weight: 600; font-size: 0.8rem; box-shadow: 0 2px 4px rgba(37,211,102,0.2); transition: background 0.2s; white-space: nowrap; }
     .btn-wa:hover { background: #1eb954; }
     .disabled-wa { color: #8c959f; font-size: 0.8rem; font-style: italic; }
-    .filter-bar { margin-bottom: 16px; display: flex; gap: 10px; align-items: center; }
-    .filter-btn { background: #fff; border: 1px solid #d0d7de; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
-    .filter-btn.active { background: #0366d6; color: #fff; border-color: #0366d6; }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
       <div>
-        <h1 style="margin:0; font-size:1.6rem; color:#1f2428;">Dhanmondi / Panthapath IELTS Coaching Center Map</h1>
+        <h1 style="margin:0; font-size:1.6rem; color:#1f2428;">Dhanmondi & Surrounding IELTS Center Lead Map</h1>
         <p style="margin:4px 0 0; color:#586069;">5 km Radius High-Probability Candidates for Computer-Delivered Mock Lab Partnership</p>
       </div>
-      <div>
-        <a href="ielts_centers_5km.csv" download class="btn-wa" style="background:#0969da;">📥 Download CSV for Excel</a>
+      <div style="display:flex; gap:10px;">
+        <a href="/" class="filter-btn" style="text-decoration:none; padding:8px 16px; font-weight:600; color:#24292e;">🏠 Exam Platform</a>
+        <a href="ielts_centers_5km.csv" download class="btn-wa" style="background:#0969da; box-shadow:none;">📥 Download CSV for Excel</a>
       </div>
     </div>
 
     <div class="stats-row">
       <div class="stat-card">
-        <h3>13</h3>
+        <h3>36</h3>
         <p>Total Mapped Centers (5km)</p>
       </div>
       <div class="stat-card" style="background:#f6ffed; border-color:#b7eb8f;">
-        <h3 style="color:#389e0d;">13</h3>
+        <h3 style="color:#389e0d;">36</h3>
         <p style="color:#586069;">Verified Direct WhatsApp Ready</p>
       </div>
       <div class="stat-card" style="background:#fff7e6; border-color:#ffd591;">
@@ -55,7 +59,21 @@
       </div>
     </div>
 
-    <table>
+    <div class="filter-bar">
+      <div class="filter-group">
+        <button class="filter-btn active" onclick="filterZone('All', this)">All Zones (36)</button>
+        <button class="filter-btn" onclick="filterZone('Panthapath & Kalabagan', this)">Panthapath & Kalabagan (7)</button>
+        <button class="filter-btn" onclick="filterZone('Farmgate & Green Road', this)">Farmgate & Green Road (10)</button>
+        <button class="filter-btn" onclick="filterZone('Dhanmondi & Lalmatia', this)">Dhanmondi & Lalmatia (13)</button>
+        <button class="filter-btn" onclick="filterZone('Science Lab & Elephant Road', this)">Science Lab & Elephant Rd (4)</button>
+        <button class="filter-btn" onclick="filterZone('Azimpur & New Market', this)">Azimpur & New Market (2)</button>
+      </div>
+      <div>
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search center, road, phone..." onkeyup="searchLeads()">
+      </div>
+    </div>
+
+    <table id="leadsTable">
       <thead>
         <tr>
           <th>Center & Type</th>
@@ -69,177 +87,726 @@
       </thead>
       <tbody>
         
-        <tr>
-          <td><span style="font-weight:700; color:#1f2428;">Global Citizen Institute</span><br><small style="color:#586069;">IELTS & Language Academy</small></td>
-          <td><span class="badge-zone">Panthapath & Green Road</span><br><small>69/E, Panthapath, Green Road, Dhaka-1205</small></td>
+        <tr data-zone="Panthapath & Kalabagan">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Global Citizen Institute</span><br>
+            <small style="color:#586069;">IELTS & Language Academy</small>
+          </td>
+          <td>
+            <span class="badge-zone">Panthapath & Kalabagan</span><br>
+            <small style="color:#444d56;">69/E, Panthapath, Green Road, Dhaka-1205</small>
+          </td>
           <td style="text-align:center;"><strong>0.4 km</strong></td>
           <td>
             <strong>01955-544771</strong><br>
-            <a href="https://facebook.com/globalcitizeninstitute" target="_blank" style="font-size:0.8rem; color:#0366d6;">Visit Facebook Page</a>
+            <a href="https://facebook.com/globalcitizeninstitute" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
           </td>
           <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
-          <td style="font-size:0.82rem; color:#444d56;">Directly at Panthapath. Zero computer lab setup. High student foot traffic.</td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Directly at Panthapath. Zero computer lab setup. High student foot traffic.</td>
           <td style="text-align:center;"><a href="https://wa.me/8801955544771?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Global%20Citizen%20Institute-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
         </tr>
         
-        <tr>
-          <td><span style="font-weight:700; color:#1f2428;">Patronus Education</span><br><small style="color:#586069;">Study Abroad & IELTS Prep</small></td>
-          <td><span class="badge-zone">Panthapath & Green Road</span><br><small>69/B Monowara Plaza (3rd Floor), Panthapath Signal, Dhaka</small></td>
+        <tr data-zone="Panthapath & Kalabagan">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Patronus Education</span><br>
+            <small style="color:#586069;">Study Abroad & IELTS Prep</small>
+          </td>
+          <td>
+            <span class="badge-zone">Panthapath & Kalabagan</span><br>
+            <small style="color:#444d56;">69/B Monowara Plaza (3rd Floor), Panthapath Signal, Dhaka</small>
+          </td>
           <td style="text-align:center;"><strong>0.3 km</strong></td>
           <td>
             <strong>01708-466474</strong><br>
-            <a href="https://facebook.com/patronuseducation" target="_blank" style="font-size:0.8rem; color:#0366d6;">Visit Facebook Page</a>
+            <a href="https://facebook.com/patronuseducation" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
           </td>
           <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
-          <td style="font-size:0.82rem; color:#444d56;">Directly at Panthapath signal building. Offers regular IELTS batches without large PC lab.</td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Directly at Panthapath signal building. Offers regular IELTS batches without large PC lab.</td>
           <td style="text-align:center;"><a href="https://wa.me/8801708466474?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Patronus%20Education-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
         </tr>
         
-        <tr>
-          <td><span style="font-weight:700; color:#1f2428;">SA Associates (Study Abroad & IELTS)</span><br><small style="color:#586069;">Consultancy & Test Prep</small></td>
-          <td><span class="badge-zone">Panthapath & Green Road</span><br><small>Suite 503, SS Properties, 17/C West Panthapath (Near Square Hospital)</small></td>
+        <tr data-zone="Panthapath & Kalabagan">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">BESI Language Academy</span><br>
+            <small style="color:#586069;">Language Training & Consultancy</small>
+          </td>
+          <td>
+            <span class="badge-zone">Panthapath & Kalabagan</span><br>
+            <small style="color:#444d56;">Level 8, House 66 (Rajanigandha Complex), Green Road, Panthapath</small>
+          </td>
+          <td style="text-align:center;"><strong>0.3 km</strong></td>
+          <td>
+            <strong>01321-210800</strong><br>
+            <a href="https://facebook.com/besistudyconsultancy" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Rajanigandha Complex right at Panthapath. High demand for CD-IELTS candidates.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801321210800?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20BESI%20Language%20Academy-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Panthapath & Kalabagan">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">SA Associates (Study Abroad & IELTS)</span><br>
+            <small style="color:#586069;">Consultancy & Test Prep</small>
+          </td>
+          <td>
+            <span class="badge-zone">Panthapath & Kalabagan</span><br>
+            <small style="color:#444d56;">Suite 503, SS Properties, 17/C West Panthapath (Near Square Hospital)</small>
+          </td>
           <td style="text-align:center;"><strong>0.5 km</strong></td>
           <td>
             <strong>01750-037773</strong><br>
-            <a href="https://facebook.com/saassociatesbd" target="_blank" style="font-size:0.8rem; color:#0366d6;">Visit Facebook Page</a>
+            <a href="https://facebook.com/saassociatesbd" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
           </td>
           <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
-          <td style="font-size:0.82rem; color:#444d56;">Large consultancy near Square Hospital. Sends students to external mock centers.</td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Large consultancy near Square Hospital. Sends students to external mock centers.</td>
           <td style="text-align:center;"><a href="https://wa.me/8801750037773?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20SA%20Associates%20%28Study%20Abroad%20%26%20IELTS%29-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
         </tr>
         
-        <tr>
-          <td><span style="font-weight:700; color:#1f2428;">IELTS Professor</span><br><small style="color:#586069;">Specialized IELTS Coaching</small></td>
-          <td><span class="badge-zone">Sukrabad & Mirpur Road</span><br><small>Raisa Bhaban (5th Floor), 100/A-B Sukrabad, Opposite Metro Shopping Mall</small></td>
+        <tr data-zone="Panthapath & Kalabagan">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Mentors' Kalabagan Branch</span><br>
+            <small style="color:#586069;">Premier Test Prep Institute</small>
+          </td>
+          <td>
+            <span class="badge-zone">Panthapath & Kalabagan</span><br>
+            <small style="color:#444d56;">166/1 Lake Circus, Kalabagan (Beside Dolphin Goli, Mirpur Road)</small>
+          </td>
+          <td style="text-align:center;"><strong>0.6 km</strong></td>
+          <td>
+            <strong>01713-243401</strong><br>
+            <a href="https://facebook.com/Mentorsbd" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#0969da; font-weight:700; font-size:0.82rem;">Tier 2 (High Volume Partner)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Packed classrooms. Prime candidate for weekend CD-IELTS overflow leasing.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801713243401?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Mentors%27%20Kalabagan%20Branch-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Panthapath & Kalabagan">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">IELTS Professor</span><br>
+            <small style="color:#586069;">Specialized IELTS Coaching</small>
+          </td>
+          <td>
+            <span class="badge-zone">Panthapath & Kalabagan</span><br>
+            <small style="color:#444d56;">Raisa Bhaban (5th Floor), 100/A-B Sukrabad, Opposite Metro Shopping Mall</small>
+          </td>
           <td style="text-align:center;"><strong>0.6 km</strong></td>
           <td>
             <strong>01711-238495</strong><br>
-            <a href="https://facebook.com/ieltsprofessor" target="_blank" style="font-size:0.8rem; color:#0366d6;">Visit Facebook Page</a>
+            <a href="https://facebook.com/ieltsprofessor" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
           </td>
           <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
-          <td style="font-size:0.82rem; color:#444d56;">Sukrabad student hub. Currently relies heavily on paper mocks.</td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Sukrabad student hub. Currently relies heavily on paper mocks.</td>
           <td style="text-align:center;"><a href="https://wa.me/8801711238495?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20IELTS%20Professor-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
         </tr>
         
-        <tr>
-          <td><span style="font-weight:700; color:#1f2428;">Meiji Education</span><br><small style="color:#586069;">Language & Higher Studies</small></td>
-          <td><span class="badge-zone">Sukrabad & Kalabagan</span><br><small>Green Landmark (4th Floor), 129 Kalabagan, Mirpur Road, Dhaka</small></td>
+        <tr data-zone="Panthapath & Kalabagan">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Meiji Education</span><br>
+            <small style="color:#586069;">Language & Higher Studies</small>
+          </td>
+          <td>
+            <span class="badge-zone">Panthapath & Kalabagan</span><br>
+            <small style="color:#444d56;">Green Landmark (4th Floor), 129 Kalabagan, Mirpur Road, Dhaka</small>
+          </td>
           <td style="text-align:center;"><strong>0.8 km</strong></td>
           <td>
             <strong>01713-339900</strong><br>
-            <a href="https://facebook.com/meijieducation" target="_blank" style="font-size:0.8rem; color:#0366d6;">Visit Facebook Page</a>
+            <a href="https://facebook.com/meijieducation" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
           </td>
           <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
-          <td style="font-size:0.82rem; color:#444d56;">Kalabagan hub. Ideal candidate for batch mock test leasing.</td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Kalabagan hub. Ideal candidate for batch mock test leasing.</td>
           <td style="text-align:center;"><a href="https://wa.me/8801713339900?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Meiji%20Education-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
         </tr>
         
-        <tr>
-          <td><span style="font-weight:700; color:#1f2428;">Zakaria's Creative IELTS Course</span><br><small style="color:#586069;">Dedicated IELTS Academy</small></td>
-          <td><span class="badge-zone">Farmgate & Indira Road</span><br><small>House 25/C, Indira Road, Farmgate, Dhaka</small></td>
+        <tr data-zone="Farmgate & Green Road">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">FM Method Head Office</span><br>
+            <small style="color:#586069;">Spoken English & IELTS Institute</small>
+          </td>
+          <td>
+            <span class="badge-zone">Farmgate & Green Road</span><br>
+            <small style="color:#444d56;">FM Tower, 1/1/A East Rajabazar (Beside Farmgate Foot-Overbridge)</small>
+          </td>
+          <td style="text-align:center;"><strong>0.9 km</strong></td>
+          <td>
+            <strong>01730-050200</strong><br>
+            <a href="https://facebook.com/fmmethodltd" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Massive spoken English brand. 100% classroom focused; no 22-seat PC testing facility.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801730050200?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20FM%20Method%20Head%20Office-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Farmgate & Green Road">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">SALT Lab - English & Opportunity</span><br>
+            <small style="color:#586069;">IELTS & Corporate English Academy</small>
+          </td>
+          <td>
+            <span class="badge-zone">Farmgate & Green Road</span><br>
+            <small style="color:#444d56;">RH Home Centre, Suite 638–640, 6th Floor, 74/B/1 Green Road (Beside UAP)</small>
+          </td>
+          <td style="text-align:center;"><strong>1.3 km</strong></td>
+          <td>
+            <strong>01847-308218</strong><br>
+            <a href="https://facebook.com/saltlab.bd" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">High reputation IELTS academy beside UAP. Active weekly mock sessions.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801847308218?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20SALT%20Lab%20-%20English%20%26%20Opportunity-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Farmgate & Green Road">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Farmgate IELTS Practice Zone</span><br>
+            <small style="color:#586069;">Dedicated Practice & Mock Club</small>
+          </td>
+          <td>
+            <span class="badge-zone">Farmgate & Green Road</span><br>
+            <small style="color:#444d56;">RH Home Centre, Suite 326 (Near University of Asia Pacific), Farmgate</small>
+          </td>
+          <td style="text-align:center;"><strong>1.3 km</strong></td>
+          <td>
+            <strong>01894-694407</strong><br>
+            <a href="https://facebook.com/farmgateieltspracticezone" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Dedicated practice club for test takers. Perfect for weekend batch bookings.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801894694407?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Farmgate%20IELTS%20Practice%20Zone-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Farmgate & Green Road">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Patron IELTS</span><br>
+            <small style="color:#586069;">Affiliate Test Prep & Registration</small>
+          </td>
+          <td>
+            <span class="badge-zone">Farmgate & Green Road</span><br>
+            <small style="color:#444d56;">Al-Fateh Medical Building (2nd Floor), 11-Holycross Road, Farmgate</small>
+          </td>
+          <td style="text-align:center;"><strong>1.6 km</strong></td>
+          <td>
+            <strong>01330-369001</strong><br>
+            <a href="https://facebook.com/patronielts" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Holycross coaching corridor. Dense student concentration.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801330369001?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Patron%20IELTS-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Farmgate & Green Road">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">AIMS IELTS Centre</span><br>
+            <small style="color:#586069;">IELTS Training Centre</small>
+          </td>
+          <td>
+            <span class="badge-zone">Farmgate & Green Road</span><br>
+            <small style="color:#444d56;">Center Point Concord (Ground Floor), Farmgate, Dhaka</small>
+          </td>
+          <td style="text-align:center;"><strong>1.5 km</strong></td>
+          <td>
+            <strong>01896-281369</strong><br>
+            <a href="https://facebook.com/aimsieltscentre" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Center Point Concord. High inquiries from students planning overseas degrees.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801896281369?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20AIMS%20IELTS%20Centre-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Farmgate & Green Road">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Zakaria's Creative IELTS Course</span><br>
+            <small style="color:#586069;">Dedicated IELTS Academy</small>
+          </td>
+          <td>
+            <span class="badge-zone">Farmgate & Green Road</span><br>
+            <small style="color:#444d56;">House 25/C, Indira Road, Farmgate, Dhaka</small>
+          </td>
           <td style="text-align:center;"><strong>1.7 km</strong></td>
           <td>
             <strong>01798-107040</strong><br>
-            <a href="https://facebook.com/zakariascreativeielts" target="_blank" style="font-size:0.8rem; color:#0366d6;">Visit Facebook Page</a>
+            <a href="https://facebook.com/zakariascreativeielts" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
           </td>
           <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
-          <td style="font-size:0.82rem; color:#444d56;">Popular boutique tutor on Indira Road. High candidate conversion on WhatsApp.</td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Popular boutique tutor on Indira Road. High candidate conversion on WhatsApp.</td>
           <td style="text-align:center;"><a href="https://wa.me/8801798107040?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Zakaria%27s%20Creative%20IELTS%20Course-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
         </tr>
         
-        <tr>
-          <td><span style="font-weight:700; color:#1f2428;">The Message Institute</span><br><small style="color:#586069;">Spoken & IELTS Institute</small></td>
-          <td><span class="badge-zone">Azimpur & Nilkhet</span><br><small>118, 2 No Dayera Sharif Gate, Azimpur, Dhaka-1205</small></td>
-          <td style="text-align:center;"><strong>2.8 km</strong></td>
+        <tr data-zone="Farmgate & Green Road">
           <td>
-            <strong>01718-660604</strong><br>
-            <a href="https://facebook.com/themessageinstitute" target="_blank" style="font-size:0.8rem; color:#0366d6;">Visit Facebook Page</a>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">DreamFly Lingual Academy</span><br>
+            <small style="color:#586069;">IELTS/PTE Language Academy</small>
+          </td>
+          <td>
+            <span class="badge-zone">Farmgate & Green Road</span><br>
+            <small style="color:#444d56;">Mahbub Plaza Shopping Mall (Level 7), Farmgate, Dhaka</small>
+          </td>
+          <td style="text-align:center;"><strong>1.7 km</strong></td>
+          <td>
+            <strong>01347-510461</strong><br>
+            <a href="https://facebook.com/dreamflylingualacademy" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
           </td>
           <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
-          <td style="font-size:0.82rem; color:#444d56;">Oldest established center in Azimpur/Nilkhet. 0 computer facilities for CD-IELTS.</td>
-          <td style="text-align:center;"><a href="https://wa.me/8801718660604?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20The%20Message%20Institute-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Mahbub Plaza Level 7. Focuses heavily on IELTS & PTE test prep.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801347510461?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20DreamFly%20Lingual%20Academy-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
         </tr>
         
-        <tr>
-          <td><span style="font-weight:700; color:#1f2428;">Language Academy Bangladesh</span><br><small style="color:#586069;">Premium IELTS Academy</small></td>
-          <td><span class="badge-zone">Dhanmondi</span><br><small>SEL SUFI SQUARE, Level 11, Plot 58, Road 27, Dhanmondi R/A</small></td>
+        <tr data-zone="Farmgate & Green Road">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Academy Parrot</span><br>
+            <small style="color:#586069;">Spoken English & IELTS</small>
+          </td>
+          <td>
+            <span class="badge-zone">Farmgate & Green Road</span><br>
+            <small style="color:#444d56;">Mahbub Plaza (Floor 6), Indira Road, Farmgate, Dhaka</small>
+          </td>
+          <td style="text-align:center;"><strong>1.7 km</strong></td>
+          <td>
+            <strong>01911-249251</strong><br>
+            <a href="https://facebook.com/AcademyParrot" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Mahbub Plaza 6th floor. High batch turnover.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801911249251?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Academy%20Parrot-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Farmgate & Green Road">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Saifur's Farmgate Branch</span><br>
+            <small style="color:#586069;">Mass Coaching Center</small>
+          </td>
+          <td>
+            <span class="badge-zone">Farmgate & Green Road</span><br>
+            <small style="color:#444d56;">Sentara Grand Building (3rd Floor), Plot 144 & 144/1, Green Road, Farmgate</small>
+          </td>
           <td style="text-align:center;"><strong>1.4 km</strong></td>
           <td>
-            <strong>01820-006677</strong><br>
-            <a href="https://facebook.com/languageacademybd" target="_blank" style="font-size:0.8rem; color:#0366d6;">Visit Facebook Page</a>
-          </td>
-          <td style="text-align:center;"><span style="color:#0969da; font-weight:700; font-size:0.82rem;">Tier 2 (High Value Partner)</span></td>
-          <td style="font-size:0.82rem; color:#444d56;">High fee charging academy on Road 27. Value-conscious about student experience.</td>
-          <td style="text-align:center;"><a href="https://wa.me/8801820006677?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Language%20Academy%20Bangladesh-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
-        </tr>
-        
-        <tr>
-          <td><span style="font-weight:700; color:#1f2428;">Edbase English</span><br><small style="color:#586069;">English Training</small></td>
-          <td><span class="badge-zone">Dhanmondi</span><br><small>House 91/1, Road 11/A, Dhanmondi, Dhaka</small></td>
-          <td style="text-align:center;"><strong>1.9 km</strong></td>
-          <td>
-            <strong>01851-137610</strong><br>
-            <a href="https://facebook.com/edbaseenglish" target="_blank" style="font-size:0.8rem; color:#0366d6;">Visit Facebook Page</a>
-          </td>
-          <td style="text-align:center;"><span style="color:#0969da; font-weight:700; font-size:0.82rem;">Tier 2 (High Value Partner)</span></td>
-          <td style="font-size:0.82rem; color:#444d56;">Road 11/A Dhanmondi. High English medium student density.</td>
-          <td style="text-align:center;"><a href="https://wa.me/8801851137610?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Edbase%20English-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
-        </tr>
-        
-        <tr>
-          <td><span style="font-weight:700; color:#1f2428;">Eduko Pathways</span><br><small style="color:#586069;">Study Abroad & IELTS Prep</small></td>
-          <td><span class="badge-zone">Dhanmondi</span><br><small>MIDAS Center (Level 8), House 5, Road 27, Dhanmondi</small></td>
-          <td style="text-align:center;"><strong>1.3 km</strong></td>
-          <td>
-            <strong>01799-993377</strong><br>
-            <a href="https://facebook.com/edukopathways" target="_blank" style="font-size:0.8rem; color:#0366d6;">Visit Facebook Page</a>
-          </td>
-          <td style="text-align:center;"><span style="color:#0969da; font-weight:700; font-size:0.82rem;">Tier 2 (High Value Partner)</span></td>
-          <td style="font-size:0.82rem; color:#444d56;">Road 27 MIDAS center. Premium study abroad clients.</td>
-          <td style="text-align:center;"><a href="https://wa.me/8801799993377?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Eduko%20Pathways-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
-        </tr>
-        
-        <tr>
-          <td><span style="font-weight:700; color:#1f2428;">Saifur's Farmgate Branch</span><br><small style="color:#586069;">Mass Coaching Center</small></td>
-          <td><span class="badge-zone">Farmgate & Indira Road</span><br><small>Farmview Super Market / Indira Road, Farmgate</small></td>
-          <td style="text-align:center;"><strong>1.8 km</strong></td>
-          <td>
-            <strong>01713-432020</strong><br>
-            <a href="https://facebook.com/saifursbd" target="_blank" style="font-size:0.8rem; color:#0366d6;">Visit Facebook Page</a>
+            <strong>01613-432006</strong><br>
+            <a href="https://facebook.com/saifursbd" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
           </td>
           <td style="text-align:center;"><span style="color:#0969da; font-weight:700; font-size:0.82rem;">Tier 2 (Volume Potential)</span></td>
-          <td style="font-size:0.82rem; color:#444d56;">Large student volume, almost exclusively paper-based. Batch overflow opportunity.</td>
-          <td style="text-align:center;"><a href="https://wa.me/8801713432020?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Saifur%27s%20Farmgate%20Branch-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Large student volume, almost exclusively paper-based. Batch overflow opportunity.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801613432006?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Saifur%27s%20Farmgate%20Branch-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
         </tr>
         
-        <tr>
-          <td><span style="font-weight:700; color:#1f2428;">PIE Education</span><br><small style="color:#586069;">English & IELTS Coaching</small></td>
-          <td><span class="badge-zone">Farmgate & Panthapath</span><br><small>Green Road / Farmgate crossing</small></td>
+        <tr data-zone="Farmgate & Green Road">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">PIE Education Farmgate</span><br>
+            <small style="color:#586069;">English & IELTS Coaching</small>
+          </td>
+          <td>
+            <span class="badge-zone">Farmgate & Green Road</span><br>
+            <small style="color:#444d56;">Green Road / Farmgate crossing, Dhaka</small>
+          </td>
           <td style="text-align:center;"><strong>1.2 km</strong></td>
           <td>
             <strong>01711-889922</strong><br>
-            <a href="https://facebook.com/pieeducation" target="_blank" style="font-size:0.8rem; color:#0366d6;">Visit Facebook Page</a>
+            <a href="https://facebook.com/pieeducation" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
           </td>
           <td style="text-align:center;"><span style="color:#0969da; font-weight:700; font-size:0.82rem;">Tier 2 (Volume Potential)</span></td>
-          <td style="font-size:0.82rem; color:#444d56;">High traffic Farmgate/Green Road junction.</td>
-          <td style="text-align:center;"><a href="https://wa.me/8801711889922?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20PIE%20Education-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">High traffic Farmgate/Green Road junction.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801711889922?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20PIE%20Education%20Farmgate-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
         </tr>
         
-        <tr>
-          <td><span style="font-weight:700; color:#1f2428;">New Market Academic English Care</span><br><small style="color:#586069;">University Student Prep</small></td>
-          <td><span class="badge-zone">New Market & Nilkhet</span><br><small>Nilkhet Super Market Area (Near Babupura Road), Dhaka</small></td>
+        <tr data-zone="Dhanmondi & Lalmatia">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Connected Education</span><br>
+            <small style="color:#586069;">Boutique Study Abroad & IELTS</small>
+          </td>
+          <td>
+            <span class="badge-zone">Dhanmondi & Lalmatia</span><br>
+            <small style="color:#444d56;">Shaptak Square (14th Floor), Dhanmondi 27, Dhaka 1209</small>
+          </td>
+          <td style="text-align:center;"><strong>1.5 km</strong></td>
+          <td>
+            <strong>01612-322108</strong><br>
+            <a href="https://facebook.com/ConnectedEducationBD" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Landmark Shaptak Square. Strong focus on UK & Australian higher education.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801612322108?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Connected%20Education-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Dhanmondi & Lalmatia">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Enhance English Bangladesh</span><br>
+            <small style="color:#586069;">IELTS & Test Venue Affiliate</small>
+          </td>
+          <td>
+            <span class="badge-zone">Dhanmondi & Lalmatia</span><br>
+            <small style="color:#444d56;">Road 27, Dhanmondi, Dhaka</small>
+          </td>
+          <td style="text-align:center;"><strong>1.4 km</strong></td>
+          <td>
+            <strong>01958-665618</strong><br>
+            <a href="https://facebook.com/enhanceenglishbd" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Active Dhanmondi 27 center with regular crash courses and mock sessions.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801958665618?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Enhance%20English%20Bangladesh-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Dhanmondi & Lalmatia">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Language Academy Bangladesh</span><br>
+            <small style="color:#586069;">Premium IELTS Academy</small>
+          </td>
+          <td>
+            <span class="badge-zone">Dhanmondi & Lalmatia</span><br>
+            <small style="color:#444d56;">SEL SUFI SQUARE, Level 11, Plot 58, Road 27, Dhanmondi R/A</small>
+          </td>
+          <td style="text-align:center;"><strong>1.4 km</strong></td>
+          <td>
+            <strong>01820-006677</strong><br>
+            <a href="https://facebook.com/languageacademybd" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#0969da; font-weight:700; font-size:0.82rem;">Tier 2 (High Value Partner)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">High fee charging academy on Road 27. Value-conscious about modern AI diagnostic reports.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801820006677?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Language%20Academy%20Bangladesh-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Dhanmondi & Lalmatia">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Edbase English</span><br>
+            <small style="color:#586069;">English Training Institute</small>
+          </td>
+          <td>
+            <span class="badge-zone">Dhanmondi & Lalmatia</span><br>
+            <small style="color:#444d56;">House 91/1, Road 11/A, Dhanmondi, Dhaka</small>
+          </td>
+          <td style="text-align:center;"><strong>1.9 km</strong></td>
+          <td>
+            <strong>01851-137610</strong><br>
+            <a href="https://facebook.com/edbaseenglish" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#0969da; font-weight:700; font-size:0.82rem;">Tier 2 (High Value Partner)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Road 11/A Dhanmondi. High English medium student density.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801851137610?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Edbase%20English-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Dhanmondi & Lalmatia">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Eduko Pathways</span><br>
+            <small style="color:#586069;">Study Abroad & IELTS Prep</small>
+          </td>
+          <td>
+            <span class="badge-zone">Dhanmondi & Lalmatia</span><br>
+            <small style="color:#444d56;">MIDAS Center (Level 8), House 5, Road 27, Dhanmondi</small>
+          </td>
+          <td style="text-align:center;"><strong>1.3 km</strong></td>
+          <td>
+            <strong>01799-993377</strong><br>
+            <a href="https://facebook.com/edukopathways" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#0969da; font-weight:700; font-size:0.82rem;">Tier 2 (High Value Partner)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Road 27 MIDAS center. Premium study abroad clients.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801799993377?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Eduko%20Pathways-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Dhanmondi & Lalmatia">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">MIE English Academy / MIE Pathways</span><br>
+            <small style="color:#586069;">Language Academy & Pathways</small>
+          </td>
+          <td>
+            <span class="badge-zone">Dhanmondi & Lalmatia</span><br>
+            <small style="color:#444d56;">Concord Mumtaz Karim Heritage, Level 3, 76 Satmasjid Road, Dhanmondi</small>
+          </td>
+          <td style="text-align:center;"><strong>1.8 km</strong></td>
+          <td>
+            <strong>01329-668449</strong><br>
+            <a href="https://facebook.com/mieenglishacademy" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Concord building on Satmasjid Road. Seeking authentic CD mock test lab.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801329668449?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20MIE%20English%20Academy%20/%20MIE%20Pathways-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Dhanmondi & Lalmatia">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">FutureEd English Language Centre</span><br>
+            <small style="color:#586069;">English Language & Test Center</small>
+          </td>
+          <td>
+            <span class="badge-zone">Dhanmondi & Lalmatia</span><br>
+            <small style="color:#444d56;">Navana GH Heights Tower (3rd Floor), House 67, Satmasjid Road, Shankar</small>
+          </td>
+          <td style="text-align:center;"><strong>2.2 km</strong></td>
+          <td>
+            <strong>01329-737064</strong><br>
+            <a href="https://facebook.com/futureedltd" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#0969da; font-weight:700; font-size:0.82rem;">Tier 2 (High Volume Partner)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Major Satmasjid Road brand with large student enrollment.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801329737064?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20FutureEd%20English%20Language%20Centre-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Dhanmondi & Lalmatia">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">EN Global Education Ltd</span><br>
+            <small style="color:#586069;">Overseas Education & Prep</small>
+          </td>
+          <td>
+            <span class="badge-zone">Dhanmondi & Lalmatia</span><br>
+            <small style="color:#444d56;">12th Floor (Lift-13), 759 Delvistaa Fuljhuri, Satmasjid Road, Dhanmondi</small>
+          </td>
+          <td style="text-align:center;"><strong>2.1 km</strong></td>
+          <td>
+            <strong>01730-599332</strong><br>
+            <a href="https://facebook.com/englobaleducation" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#0969da; font-weight:700; font-size:0.82rem;">Tier 2 (High Value Partner)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Delvistaa Fuljhuri tower. High volume of UK/Canada bound test takers.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801730599332?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20EN%20Global%20Education%20Ltd-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Dhanmondi & Lalmatia">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Shabuj Global Education</span><br>
+            <small style="color:#586069;">Higher Education & Test Prep</small>
+          </td>
+          <td>
+            <span class="badge-zone">Dhanmondi & Lalmatia</span><br>
+            <small style="color:#444d56;">759 Delvista Fuljhuri (Lift-5), Satmasjid Road, Dhanmondi</small>
+          </td>
+          <td style="text-align:center;"><strong>2.1 km</strong></td>
+          <td>
+            <strong>01321-182527</strong><br>
+            <a href="https://facebook.com/ShabujGlobalEducationBangladesh" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#0969da; font-weight:700; font-size:0.82rem;">Tier 2 (High Value Partner)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Major student recruitment partner on Satmasjid Road.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801321182527?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Shabuj%20Global%20Education-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Dhanmondi & Lalmatia">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">PFEC Global Dhanmondi</span><br>
+            <small style="color:#586069;">International Education Agency</small>
+          </td>
+          <td>
+            <span class="badge-zone">Dhanmondi & Lalmatia</span><br>
+            <small style="color:#444d56;">SIMA Blossom (5th Floor), Plot 390 (Old), Road 27, Dhanmondi</small>
+          </td>
+          <td style="text-align:center;"><strong>1.5 km</strong></td>
+          <td>
+            <strong>01713-243401</strong><br>
+            <a href="https://facebook.com/pfecglobal" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#0969da; font-weight:700; font-size:0.82rem;">Tier 2 (High Value Partner)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">SIMA Blossom on Road 27. High-ticket study abroad aspirants.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801713243401?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20PFEC%20Global%20Dhanmondi-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Dhanmondi & Lalmatia">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Wings Learning Centre</span><br>
+            <small style="color:#586069;">Language Centre & Test Venue</small>
+          </td>
+          <td>
+            <span class="badge-zone">Dhanmondi & Lalmatia</span><br>
+            <small style="color:#444d56;">House 55, Road 4/A, Dhanmondi R/A, Dhaka-1209</small>
+          </td>
+          <td style="text-align:center;"><strong>1.6 km</strong></td>
+          <td>
+            <strong>01877-740088</strong><br>
+            <a href="https://facebook.com/wingslearningcentre" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#0969da; font-weight:700; font-size:0.82rem;">Tier 2 (High Volume Partner)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Road 4/A Dhanmondi. High continuous demand for mock practice.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801877740088?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Wings%20Learning%20Centre-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Dhanmondi & Lalmatia">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Saifur's Lalmatia Branch</span><br>
+            <small style="color:#586069;">Mass Coaching Center</small>
+          </td>
+          <td>
+            <span class="badge-zone">Dhanmondi & Lalmatia</span><br>
+            <small style="color:#444d56;">Sunrise Plaza (Opposite Dhanmondi Boys School), Lalmatia / Dhanmondi 27</small>
+          </td>
+          <td style="text-align:center;"><strong>1.5 km</strong></td>
+          <td>
+            <strong>01613-432073</strong><br>
+            <a href="https://facebook.com/saifursbd" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#0969da; font-weight:700; font-size:0.82rem;">Tier 2 (Volume Potential)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Hub for Dhanmondi/Lalmatia school and college candidates.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801613432073?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Saifur%27s%20Lalmatia%20Branch-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Dhanmondi & Lalmatia">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">English Therapy</span><br>
+            <small style="color:#586069;">Spoken English & IELTS Giant</small>
+          </td>
+          <td>
+            <span class="badge-zone">Dhanmondi & Lalmatia</span><br>
+            <small style="color:#444d56;">5/1, Block: D, Lalmatia, Mohammadpur, Dhaka</small>
+          </td>
+          <td style="text-align:center;"><strong>1.8 km</strong></td>
+          <td>
+            <strong>01945-666777</strong><br>
+            <a href="https://facebook.com/englishtherapy" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Massive online and offline student base. Zero computer testing lab. Prime leasing partner.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801945666777?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20English%20Therapy-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Science Lab & Elephant Road">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">TESOL Bangladesh</span><br>
+            <small style="color:#586069;">Renowned Language Academy</small>
+          </td>
+          <td>
+            <span class="badge-zone">Science Lab & Elephant Road</span><br>
+            <small style="color:#444d56;">Kobi Bhaban, House 43, Bashundhara Lane, Science Lab (Near Sukanya Tower)</small>
+          </td>
+          <td style="text-align:center;"><strong>1.6 km</strong></td>
+          <td>
+            <strong>01620-000994</strong><br>
+            <a href="https://facebook.com/TESOLBANGLADESH" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Massive student following across Bangladesh. Lacks 22-seat PC testing facility.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801620000994?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20TESOL%20Bangladesh-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Science Lab & Elephant Road">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Axiom Education & Immigration</span><br>
+            <small style="color:#586069;">Immigration & Test Prep</small>
+          </td>
+          <td>
+            <span class="badge-zone">Science Lab & Elephant Road</span><br>
+            <small style="color:#444d56;">House 5, Road 1, Dhanmondi (Science Lab Police Box) & Anam Rangs Plaza</small>
+          </td>
+          <td style="text-align:center;"><strong>1.2 km</strong></td>
+          <td>
+            <strong>01714-100647</strong><br>
+            <a href="https://facebook.com/axiomeducationgroup" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Directly at Science Lab junction. Large student footfall needing mock assessments.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801714100647?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Axiom%20Education%20%26%20Immigration-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Science Lab & Elephant Road">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">Student Council Study Abroad</span><br>
+            <small style="color:#586069;">Study Abroad & IELTS Prep</small>
+          </td>
+          <td>
+            <span class="badge-zone">Science Lab & Elephant Road</span><br>
+            <small style="color:#444d56;">Suite 521, Level 4, Sahera Tropical Centre, Bata Signal, New Elephant Road</small>
+          </td>
+          <td style="text-align:center;"><strong>1.8 km</strong></td>
+          <td>
+            <strong>01995-983003</strong><br>
+            <a href="https://facebook.com/studentcouncilstudyabroad" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Sahera Tropical Centre Bata signal hub. Candidates require real CD mock experience.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801995983003?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20Student%20Council%20Study%20Abroad-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Science Lab & Elephant Road">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">PranBin Education</span><br>
+            <small style="color:#586069;">Education Consultancy</small>
+          </td>
+          <td>
+            <span class="badge-zone">Science Lab & Elephant Road</span><br>
+            <small style="color:#444d56;">Sahera Tropical Centre, Room 910 (Lift 8), Bata Signal, New Elephant Road</small>
+          </td>
+          <td style="text-align:center;"><strong>1.8 km</strong></td>
+          <td>
+            <strong>01329-668492</strong><br>
+            <a href="https://facebook.com/pranbineducation" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#0969da; font-weight:700; font-size:0.82rem;">Tier 2 (High Value Partner)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Elephant Road student corridor. Sends regular cohorts for IELTS registration.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801329668492?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20PranBin%20Education-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Azimpur & New Market">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">The Message Institute</span><br>
+            <small style="color:#586069;">Spoken English & IELTS Institute</small>
+          </td>
+          <td>
+            <span class="badge-zone">Azimpur & New Market</span><br>
+            <small style="color:#444d56;">118, 2 No Dayera Sharif Gate, Azimpur, Dhaka-1205</small>
+          </td>
+          <td style="text-align:center;"><strong>2.8 km</strong></td>
+          <td>
+            <strong>01718-660604</strong><br>
+            <a href="https://facebook.com/themessageinstitute" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
+          </td>
+          <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Oldest established center in Azimpur/Nilkhet. 0 computer facilities for CD-IELTS.</td>
+          <td style="text-align:center;"><a href="https://wa.me/8801718660604?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20The%20Message%20Institute-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
+        </tr>
+        
+        <tr data-zone="Azimpur & New Market">
+          <td>
+            <span style="font-weight:700; color:#1f2428; font-size:0.95rem;">New Market Academic English Care</span><br>
+            <small style="color:#586069;">University Student Prep</small>
+          </td>
+          <td>
+            <span class="badge-zone">Azimpur & New Market</span><br>
+            <small style="color:#444d56;">Nilkhet Super Market Area (Near Babupura Road), Dhaka</small>
+          </td>
           <td style="text-align:center;"><strong>2.4 km</strong></td>
           <td>
             <strong>01819-445566</strong><br>
-            <a href="https://facebook.com/nilkhetenglishcare" target="_blank" style="font-size:0.8rem; color:#0366d6;">Visit Facebook Page</a>
+            <a href="https://facebook.com/nilkhetenglishcare" target="_blank" style="font-size:0.8rem; color:#0366d6; text-decoration:none;">🌐 Facebook Page</a>
           </td>
           <td style="text-align:center;"><span style="color:#cf222e; font-weight:700; font-size:0.82rem;">Tier 1 (Immediate Hook)</span></td>
-          <td style="font-size:0.82rem; color:#444d56;">Directly targets Dhaka University / Eden College / Dhaka College students heading abroad.</td>
+          <td style="font-size:0.82rem; color:#444d56; max-width:280px;">Directly targets Dhaka University, Eden College, and Dhaka College students heading abroad.</td>
           <td style="text-align:center;"><a href="https://wa.me/8801819445566?text=Assalamu%20Alaikum%20Sir/Ma%27am%2C%0A%0APanthapath/Dhanmondi-te%20apnader%20New%20Market%20Academic%20English%20Care-er%20IELTS%20coaching%20activities%20regularly%20follow%20kori.%0A%0AAmar%20ekta%20quick%20proshno%20chhilo%3A%20Apnader%20ekhon%20je%20students-ra%20Computer-Delivered%20%28CD%29%20IELTS-er%20preparation%20nichhe%2C%20tader%20jonno%20ki%20apnader%20offline%2020%2B%20computer-er%20dedicated%20mock%20test%20lab%20ache%3F%0A%0ANa%20thakle%2C%20amra%20Dhanmondi/Panthapath-e%20ekta%20dedicated%2022-seat%20Computer-Delivered%20IELTS%20Lab%20set%20up%20korechi%20%28partitions%2C%20soundproof%20headsets%2C%20instant%20AI%20diagnostic%20scorecard%29.%0A%0AAmra%20local%20centers-der%20wholesale%20partner%20hishebe%20facility%20provide%20korchi%E2%80%94apnara%20apnader%20brand-e%20students-der%20CD%20mock%20test%20nite%20parben.%0A%0AApnake%20ki%20ekta%20sample%20printed%20A4%20diagnostic%20report%20pathabo%20jeta%20exam%20seshe%20student-der%20deya%20hoy%3F" target="_blank" class="btn-wa">💬 Send WhatsApp Pitch</a></td>
         </tr>
         
       </tbody>
     </table>
   </div>
+
+  <script>
+    let currentZone = 'All';
+
+    function filterZone(zone, btn) {
+      currentZone = zone;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilters();
+    }
+
+    function searchLeads() {
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const rows = document.querySelectorAll('#leadsTable tbody tr');
+      
+      rows.forEach(row => {
+        const zone = row.getAttribute('data-zone');
+        const text = row.innerText.toLowerCase();
+        
+        const matchesZone = (currentZone === 'All' || zone.includes(currentZone));
+        const matchesQuery = !query || text.includes(query);
+        
+        if (matchesZone && matchesQuery) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+  </script>
 </body>
 </html>
