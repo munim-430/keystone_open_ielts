@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IELTS Computer-Delivered Mock Exam</title>
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="/css/ielts-theme.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/print-scorecard.css">
+</head>
+<body>
+
+  <!-- Top Authentic CD-IELTS Header -->
+  <header class="ielts-topbar">
+    <div class="ielts-brand">
+      <span class="ielts-logo-badge">IELTS</span>
+      <span class="ielts-title-tag">Computer-delivered</span>
+      <span id="header-module-title" style="font-weight:700; color:#fff; margin-left:14px; letter-spacing:0.5px;">LOGIN</span>
+    </div>
+
+    <!-- Center Countdown Timer -->
+    <div class="ielts-timer-container" id="header-timer-box">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff" style="margin-right:2px;">
+        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/>
+      </svg>
+      <span id="header-timer-display">--:--</span>
+    </div>
+
+    <!-- Candidate Info & Controls -->
+    <div class="ielts-candidate-badge">
+      <div>
+        <span class="cid" id="header-candidate-id">PASSPORT: ---</span> | 
+        <span class="cname" id="header-candidate-name">Candidate</span>
+      </div>
+
+      <div class="ielts-controls">
+        <button class="ctrl-btn" id="btn-font-toggle" title="Adjust font size">Font: Normal</button>
+        <button class="ctrl-btn" id="btn-contrast-toggle" title="Adjust contrast mode">Contrast: Standard</button>
+        <button class="ctrl-btn" id="btn-help" title="Exam instructions">Help</button>
+        <button class="ctrl-btn" id="btn-submit-module" style="background:#d9383a; border-color:#b82325; font-weight:700;">Finish Section ▶</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Candidate Login Screen (Overlay) -->
+  <div class="login-screen-wrapper" id="login-screen">
+    <div class="login-card">
+      <div class="login-card-header">
+        <span class="ielts-logo-badge" style="font-size:1.6rem; padding:6px 14px;">IELTS</span>
+        <h2>Candidate Exam Login</h2>
+        <p style="color:#586069; font-size:0.88rem; margin-top:4px;">Official Computer-Delivered Classroom Mock Test</p>
+      </div>
+
+      <div class="login-card-body">
+        <div id="login-error-msg" style="display:none; background:#ffebe9; color:#cf222e; border:1px solid #ff8182; border-radius:4px; padding:10px; font-size:0.88rem; margin-bottom:14px;"></div>
+
+        <form id="candidate-login-form">
+          <div class="form-group">
+            <label for="cand-name">Candidate Full Name</label>
+            <input type="text" id="cand-name" class="form-input" placeholder="e.g. Johnathan Doe" required autofocus />
+          </div>
+
+          <div class="form-group">
+            <label for="cand-passport">Passport / NID Number</label>
+            <input type="text" id="cand-passport" class="form-input" placeholder="e.g. A12345678" required />
+          </div>
+
+          <div style="display:flex; gap:12px;">
+            <div class="form-group" style="flex:1;">
+              <label for="cand-exam-type">Exam Type</label>
+              <select id="cand-exam-type" class="form-select">
+                <option value="Academic" selected>Academic</option>
+                <option value="General">General Training</option>
+              </select>
+            </div>
+
+            <div class="form-group" style="flex:1;">
+              <label for="cand-target-band">Target Band Score</label>
+              <select id="cand-target-band" class="form-select">
+                <option value="6.0">Band 6.0</option>
+                <option value="6.5">Band 6.5</option>
+                <option value="7.0" selected>Band 7.0</option>
+                <option value="7.5">Band 7.5</option>
+                <option value="8.0">Band 8.0</option>
+                <option value="8.5">Band 8.5</option>
+                <option value="9.0">Band 9.0</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:12px;">
+            <div class="form-group" style="flex:2;">
+              <label for="cand-test-set">Test Paper</label>
+              <select id="cand-test-set" class="form-select">
+                <option value="academic_test_1" selected>Official IELTS Academic Practice Test 1</option>
+              </select>
+            </div>
+
+            <div class="form-group" style="flex:1;">
+              <label for="terminal-id-input">Terminal ID</label>
+              <input type="text" id="terminal-id-input" class="form-input" placeholder="PC-01" />
+            </div>
+          </div>
+
+          <button type="submit" id="btn-submit-login" class="btn-start-exam" style="margin-top:10px;">
+            Start Mock Exam
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sound & Microphone Calibration Screen -->
+  <div id="sound-check-screen" style="display:none; width:100%; height:100%; overflow-y:auto;">
+    <div class="calibration-container">
+      <h2 style="color:#1f2428; border-bottom:2px solid #e1e4e8; padding-bottom:10px;">Hardware Sound & Microphone Calibration</h2>
+      <p style="color:#586069; font-size:0.92rem; margin-top:8px;">
+        Before commencing the exam, please calibrate your headphones and headset microphone.
+      </p>
+
+      <!-- Headphone Check -->
+      <div class="audio-check-box">
+        <div>
+          <div style="font-weight:700; color:#24292e;">1. Headphone Audio Check</div>
+          <div style="font-size:0.85rem; color:#586069;">Click the button to test sound clarity in your headphones.</div>
+        </div>
+        <button id="btn-play-test-sound" class="ctrl-btn" style="background:#0366d6; padding:8px 16px; font-size:0.9rem;">
+          🔊 Play Test Chime
+        </button>
+      </div>
+
+      <!-- Microphone Check -->
+      <div class="audio-check-box" style="flex-direction:column; align-items:flex-start;">
+        <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+          <div>
+            <div style="font-weight:700; color:#24292e;">2. Speaking Test Microphone Check</div>
+            <div style="font-size:0.85rem; color:#586069;" id="mic-status-tag">Microphone access required for speaking evaluation.</div>
+          </div>
+          <button id="btn-grant-mic" class="ctrl-btn" style="background:#2ea44f; padding:8px 16px; font-size:0.9rem;">
+            🎙 Grant & Test Mic
+          </button>
+        </div>
+
+        <div style="width:100%; margin-top:12px;">
+          <div style="font-size:0.8rem; font-weight:600; color:#586069;">Voice Input Level:</div>
+          <div class="mic-level-meter">
+            <div id="mic-level-fill" class="mic-level-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:right; margin-top:24px;">
+        <button id="btn-sound-continue" class="nav-action-btn primary" style="padding:10px 24px; font-size:1rem;" disabled>
+          Continue to Listening Module ▶
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Active Workspaces for 4 Modules -->
+  <main class="ielts-main-workspace">
+    <!-- Listening Module -->
+    <div id="listening-workspace" style="display:none; width:100%; height:100%;"></div>
+
+    <!-- Reading Module -->
+    <div id="reading-workspace" style="display:none; width:100%; height:100%;"></div>
+
+    <!-- Writing Module -->
+    <div id="writing-workspace" style="display:none; width:100%; height:100%;"></div>
+
+    <!-- Speaking Module -->
+    <div id="speaking-workspace" style="display:none; width:100%; height:100%;"></div>
+
+    <!-- Scorecard & Diagnostic Report -->
+    <div id="scorecard-workspace" style="display:none; width:100%; height:100%; overflow-y:auto;"></div>
+  </main>
+
+  <!-- Bottom Question Navigation Bar (for Listening & Reading) -->
+  <footer class="ielts-bottombar" id="ielts-bottombar" style="display:none;">
+    <div class="bottom-section-info">
+      <span id="bottom-module-tag">Listening</span>
+    </div>
+
+    <!-- Horizontal Questions 1 to 40 Scroller -->
+    <div class="question-nav-container" id="question-nav-container">
+      <!-- 40 Question Badges populated dynamically -->
+    </div>
+
+    <div class="bottom-nav-actions">
+      <button class="nav-action-btn" id="btn-nav-back">◀ Back</button>
+      <button class="nav-action-btn" id="btn-nav-next">Next ▶</button>
+    </div>
+  </footer>
+
+  <!-- Help Modal Dialog -->
+  <div class="modal-overlay" id="modal-help">
+    <div class="modal-content">
+      <h3 style="font-size:1.25rem; color:#1f2428; border-bottom:1px solid #e1e4e8; padding-bottom:8px; margin-bottom:12px;">
+        Official IELTS Test Rules & Navigation
+      </h3>
+      <div style="font-size:0.9rem; line-height:1.6; color:#444d56;">
+        <p><strong>Question Navigation:</strong> Use the question numbers at the bottom of the screen to jump directly to any question. Gray indicates answered, blue indicates the active question.</p>
+        <p style="margin-top:8px;"><strong>Review Checkbox:</strong> Check "Review" to mark a question with a red indicator if you wish to reconsider your answer later.</p>
+        <p style="margin-top:8px;"><strong>Highlighter Tool (Reading):</strong> Select any text in the passage with your mouse to highlight it or attach personal notes.</p>
+        <p style="margin-top:8px;"><strong>Writing Auto-Save:</strong> Your essays are saved automatically every 5 seconds. Mind the word counter indicators (150 words for Task 1, 250 words for Task 2).</p>
+      </div>
+      <div style="text-align:right; margin-top:18px;">
+        <button class="nav-action-btn primary" id="btn-close-help">Close Instructions</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client JavaScript Modules -->
+  <script src="/js/state.js"></script>
+  <script src="/js/api-client.js"></script>
+  <script src="/js/audio-engine.js"></script>
+  <script src="/js/modules/login.js"></script>
+  <script src="/js/modules/sound-check.js"></script>
+  <script src="/js/modules/listening.js"></script>
+  <script src="/js/modules/reading.js"></script>
+  <script src="/js/modules/writing.js"></script>
+  <script src="/js/modules/speaking.js"></script>
+  <script src="/js/modules/scorecard.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

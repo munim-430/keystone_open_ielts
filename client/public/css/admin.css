@@ -1,0 +1,271 @@
+/**
+ * IELTS CD Mock Test Platform - Invigilator Hub Styling
+ * High-density 22-terminal classroom monitoring & batch print console
+ */
+
+.admin-body {
+  background-color: #f0f2f5;
+  color: #1c1e21;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.admin-header {
+  background-color: #1a1f2c;
+  color: #fff;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid #d9383a;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-brand h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.admin-stats-bar {
+  display: flex;
+  gap: 16px;
+}
+
+.stat-chip {
+  background: rgba(255,255,255,0.1);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stat-chip strong {
+  color: #58a6ff;
+  font-size: 1rem;
+}
+
+/* Master Invigilator Control Toolbar */
+.admin-toolbar {
+  background: #ffffff;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #d0d7de;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-btn {
+  padding: 8px 14px;
+  border-radius: 5px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid #d0d7de;
+  background: #f6f8fa;
+  color: #24292e;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+
+.admin-btn:hover {
+  background: #eaeef2;
+}
+
+.admin-btn.btn-primary {
+  background: #0366d6;
+  border-color: #0366d6;
+  color: #fff;
+}
+
+.admin-btn.btn-primary:hover {
+  background: #0256b9;
+}
+
+.admin-btn.btn-danger {
+  background: #d9383a;
+  border-color: #b82325;
+  color: #fff;
+}
+
+.admin-btn.btn-danger:hover {
+  background: #b82325;
+}
+
+.admin-btn.btn-success {
+  background: #2ea44f;
+  border-color: #2ea44f;
+  color: #fff;
+}
+
+.admin-btn.btn-success:hover {
+  background: #278c43;
+}
+
+/* 22-Terminal Grid Layout */
+.terminal-grid-container {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.terminal-card {
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #d0d7de;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.terminal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.terminal-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f0f2f5;
+}
+
+.terminal-id-tag {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #1a1f2c;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pulse-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.pulse-indicator.online {
+  background-color: #2ea44f;
+  box-shadow: 0 0 0 2px rgba(46,164,79,0.3);
+}
+
+.pulse-indicator.idle {
+  background-color: #d29922;
+  box-shadow: 0 0 0 2px rgba(210,153,34,0.3);
+}
+
+.pulse-indicator.disconnected {
+  background-color: #cf222e;
+}
+
+.pulse-indicator.completed {
+  background-color: #8250df;
+}
+
+.candidate-name-display {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #24292e;
+  margin-bottom: 4px;
+}
+
+.candidate-passport-display {
+  font-size: 0.82rem;
+  color: #6e7781;
+  margin-bottom: 12px;
+}
+
+.progress-module-pill {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.pill-listening { background: #ddf4ff; color: #0969da; }
+.pill-reading   { background: #dcffe4; color: #1a7f37; }
+.pill-writing   { background: #fff8c5; color: #9a6700; }
+.pill-speaking  { background: #fbefff; color: #8250df; }
+.pill-completed { background: #2ea44f; color: #ffffff; }
+
+.terminal-timer-display {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #24292e;
+  margin-bottom: 14px;
+}
+
+.terminal-card-actions {
+  display: flex;
+  gap: 6px;
+  border-top: 1px solid #f0f2f5;
+  padding-top: 10px;
+}
+
+.term-action-btn {
+  flex: 1;
+  padding: 5px 8px;
+  border: 1px solid #d0d7de;
+  background: #f6f8fa;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+}
+
+.term-action-btn:hover {
+  background: #e1e4e8;
+}
+
+/* Modals */
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+}
+
+.admin-modal-card {
+  background: #fff;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}

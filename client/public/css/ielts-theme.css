@@ -1,0 +1,347 @@
+/**
+ * IELTS CD Mock Test Platform - Official Theme & Design System
+ * Authentic British Council / IDP Computer-Delivered Interface
+ */
+
+:root {
+  --base-font-size: 16px;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  /* Official CD-IELTS Color Palette */
+  --bg-primary: #f4f6f8;
+  --bg-surface: #ffffff;
+  --bg-header: #1f2428;
+  --bg-bottom-nav: #24292e;
+  
+  --text-primary: #212529;
+  --text-secondary: #586069;
+  --text-light: #ffffff;
+  --text-muted: #8c959f;
+  
+  --ielts-red: #d9383a;
+  --ielts-red-dark: #b82325;
+  --ielts-blue: #0366d6;
+  --ielts-green: #28a745;
+  --ielts-yellow: #f1e05a;
+  --ielts-orange: #d15700;
+  
+  --border-color: #d1d5da;
+  --border-light: #e1e4e8;
+  
+  --nav-btn-active: #0366d6;
+  --nav-btn-answered: #444d56;
+  --nav-btn-unanswered: #2f363d;
+  --nav-btn-flagged: #d9383a;
+  
+  --split-handle: #d1d5da;
+  --split-handle-hover: #0366d6;
+}
+
+/* Contrast Modes */
+/* Mode 1: Black on White (High Contrast) */
+body.contrast-bw {
+  --bg-primary: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-header: #000000;
+  --bg-bottom-nav: #000000;
+  --text-primary: #000000;
+  --text-secondary: #222222;
+  --border-color: #000000;
+}
+
+/* Mode 2: White on Black */
+body.contrast-wb {
+  --bg-primary: #121212;
+  --bg-surface: #1e1e1e;
+  --bg-header: #000000;
+  --bg-bottom-nav: #000000;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --text-light: #ffffff;
+  --border-color: #444444;
+}
+
+/* Mode 3: Yellow on Black */
+body.contrast-yb {
+  --bg-primary: #000000;
+  --bg-surface: #121212;
+  --bg-header: #000000;
+  --bg-bottom-nav: #000000;
+  --text-primary: #ffeb3b;
+  --text-secondary: #fff59d;
+  --text-light: #ffeb3b;
+  --border-color: #ffeb3b;
+}
+
+/* Font Sizing */
+body.font-large {
+  --base-font-size: 19px;
+}
+body.font-xlarge {
+  --base-font-size: 22px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--base-font-size);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  user-select: text;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top CD-IELTS Header */
+.ielts-topbar {
+  background-color: var(--bg-header);
+  color: var(--text-light);
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  flex-shrink: 0;
+  border-bottom: 2px solid var(--ielts-red);
+}
+
+.ielts-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ielts-logo-badge {
+  background-color: var(--ielts-red);
+  color: #fff;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 3px;
+  letter-spacing: 1px;
+  font-size: 1.1rem;
+}
+
+.ielts-title-tag {
+  font-size: 0.85rem;
+  color: #cfd3d8;
+  font-weight: 500;
+}
+
+.ielts-candidate-badge {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.9rem;
+}
+
+.ielts-candidate-badge .cid {
+  color: #8c959f;
+}
+
+.ielts-candidate-badge .cname {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Center Timer */
+.ielts-timer-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #2f363d;
+  padding: 4px 14px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.5px;
+}
+
+.ielts-timer-container.warning {
+  background-color: #d73a49;
+  animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: 0.85; }
+  to { opacity: 1; transform: scale(1.02); }
+}
+
+.ielts-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ctrl-btn {
+  background: #2f363d;
+  border: 1px solid #444d56;
+  color: #e1e4e8;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s;
+}
+
+.ctrl-btn:hover {
+  background: #444d56;
+  color: #fff;
+}
+
+.ctrl-btn.active {
+  background: var(--ielts-blue);
+  border-color: var(--ielts-blue);
+}
+
+/* Main Content Workspace */
+.ielts-main-workspace {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+}
+
+/* Bottom Question Navigation Bar */
+.ielts-bottombar {
+  background-color: var(--bg-bottom-nav);
+  color: #fff;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  flex-shrink: 0;
+  border-top: 1px solid #30363d;
+}
+
+.bottom-section-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: #8c959f;
+  min-width: 140px;
+}
+
+.bottom-section-info strong {
+  color: #fff;
+}
+
+/* Questions Horizontal Scroller */
+.question-nav-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 4px 8px;
+  max-width: 65vw;
+}
+
+.q-badge {
+  background-color: var(--nav-btn-unanswered);
+  color: #c9d1d9;
+  border: 1px solid #484f58;
+  border-radius: 3px;
+  min-width: 30px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  padding: 0 4px;
+  user-select: none;
+  transition: all 0.15s;
+}
+
+.q-badge:hover {
+  background-color: #484f58;
+  color: #fff;
+}
+
+.q-badge.current {
+  border: 2px solid #58a6ff;
+  color: #fff;
+  background-color: #1f6feb;
+  transform: translateY(-2px);
+}
+
+.q-badge.answered {
+  background-color: #388bfd;
+  color: #fff;
+  border-color: #388bfd;
+}
+
+.q-badge.flagged::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #f85149;
+}
+
+.bottom-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-action-btn {
+  background-color: #21262d;
+  color: #c9d1d9;
+  border: 1px solid #30363d;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-action-btn:hover {
+  background-color: #30363d;
+  color: #fff;
+}
+
+.nav-action-btn.primary {
+  background-color: var(--ielts-red);
+  border-color: var(--ielts-red-dark);
+  color: #fff;
+}
+
+.nav-action-btn.primary:hover {
+  background-color: var(--ielts-red-dark);
+}
+
+.review-checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #8c959f;
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+.review-checkbox-wrapper input {
+  accent-color: #f85149;
+  cursor: pointer;
+}

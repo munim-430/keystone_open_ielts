@@ -1,0 +1,21 @@
+{
+  "name": "keystone-open-ielts",
+  "version": "1.0.0",
+  "description": "Production Computer-Delivered IELTS Mock Platform for Windows LAN classrooms",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.5",
+    "express": "^5.2.1",
+    "multer": "^2.4.0",
+    "ws": "^8.22.0"
+  }
+}

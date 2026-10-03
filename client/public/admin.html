@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IELTS Invigilator Hub - Classroom LAN Console</title>
+  
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- Header -->
+  <header class="admin-header">
+    <div class="admin-brand">
+      <div style="background:#d9383a; color:#fff; font-weight:900; padding:4px 8px; border-radius:3px;">IELTS</div>
+      <h1>Classroom Invigilator Console (22 LAN Terminals)</h1>
+    </div>
+
+    <!-- Live Statistics Chips -->
+    <div class="admin-stats-bar">
+      <div class="stat-chip">Total Terminals: <strong id="stat-total">0</strong></div>
+      <div class="stat-chip">Active Now: <strong id="stat-active" style="color:#2ea44f;">0</strong></div>
+      <div class="stat-chip">Completed: <strong id="stat-completed" style="color:#8250df;">0</strong></div>
+      <div class="stat-chip">Avg Band: <strong id="stat-avg-band" style="color:#f1e05a;">-</strong></div>
+    </div>
+  </header>
+
+  <!-- Master Invigilator Control Toolbar -->
+  <div class="admin-toolbar">
+    <div class="toolbar-group">
+      <button class="admin-btn btn-primary" onclick="broadcastMasterCommand('RESUME_EXAM')">
+        ▶ Start / Resume All
+      </button>
+      <button class="admin-btn" onclick="broadcastMasterCommand('PAUSE_EXAM')">
+        ⏸ Pause All
+      </button>
+      <button class="admin-btn" onclick="broadcastMasterCommand('EXTEND_TIME', { minutes: 5 })">
+        ⏱ Add +5 Min to All
+      </button>
+      <button class="admin-btn btn-danger" onclick="broadcastMasterCommand('FORCE_SUBMIT')">
+        ⏹ Force Submit All
+      </button>
+    </div>
+
+    <div class="toolbar-group">
+      <!-- Batch Print Button -->
+      <button class="admin-btn btn-success" onclick="openBatchPrintModal()">
+        🖨 Batch Print All Reports (A4)
+      </button>
+      <a href="/api/invigilator/export-csv" class="admin-btn" style="text-decoration:none;">
+        📥 Export Results (CSV)
+      </a>
+      <button class="admin-btn" onclick="openSettingsModal()">
+        ⚙ AI Settings
+      </button>
+    </div>
+  </div>
+
+  <!-- 22-Terminal Grid View -->
+  <main class="terminal-grid-container" id="terminal-grid">
+    <div style="grid-column: 1 / -1; text-align:center; padding:50px; color:#6e7781;">
+      Connecting to terminal network... Waiting for candidate logins over LAN.
+    </div>
+  </main>
+
+  <!-- AI Settings Modal -->
+  <div class="admin-modal-overlay" id="modal-settings">
+    <div class="admin-modal-card">
+      <h3 style="margin-bottom:16px; color:#1a1f2c; border-bottom:1px solid #e1e4e8; padding-bottom:8px;">
+        AI Diagnostic Engine Configuration
+      </h3>
+
+      <div style="margin-bottom:14px;">
+        <label style="display:block; font-weight:600; margin-bottom:6px;">Diagnostic Provider:</label>
+        <select id="settings-provider-select" style="width:100%; padding:8px; border:1px solid #d0d7de; border-radius:4px;">
+          <option value="deepseek">DeepSeek (Official API - R1/V3)</option>
+          <option value="groq">Groq (Llama 3.3 70B & Whisper Large v3)</option>
+          <option value="openrouter">OpenRouter (DeepSeek R1 Free / Llama 3)</option>
+          <option value="heuristic">Offline Heuristic Engine (100% LAN Local, Zero Cost)</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <label style="display:block; font-weight:600; margin-bottom:6px;">API Key (if changing):</label>
+        <input type="password" id="settings-api-key" placeholder="sk-..." style="width:100%; padding:8px; border:1px solid #d0d7de; border-radius:4px;" />
+        <small style="color:#6e7781; display:block; margin-top:4px;">Keys are securely stored in server environment.</small>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:8px;">
+        <button class="admin-btn" onclick="closeSettingsModal()">Cancel</button>
+        <button class="admin-btn btn-primary" onclick="saveSettings()">Save & Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Batch Print Confirmation Modal -->
+  <div class="admin-modal-overlay" id="modal-batch-print">
+    <div class="admin-modal-card">
+      <h3 style="margin-bottom:14px; color:#1a1f2c;">Batch Print All Candidate Scorecards</h3>
+      <p style="color:#586069; font-size:0.95rem; line-height:1.5;">
+        This will open a consolidated, print-ready document containing all completed candidate scorecards formatted for A4 paper. Your browser will trigger the print dialog for your local classroom printer.
+      </p>
+
+      <div style="background:#f6f8fa; border:1px solid #d0d7de; padding:12px; border-radius:6px; margin:16px 0;">
+        <div id="batch-print-candidate-count">Scanning completed candidates...</div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:8px;">
+        <button class="admin-btn" onclick="closeBatchPrintModal()">Cancel</button>
+        <button class="admin-btn btn-success" id="btn-confirm-batch-print" onclick="executeBatchPrint()">
+          Open Print Dialog
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard JavaScript -->
+  <script src="/js/admin/dashboard.js"></script>
+</body>
+</html>

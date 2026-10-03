@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IELTS Official Diagnostic Scorecard (A4 Print Ready)</title>
+  
+  <link rel="stylesheet" href="/css/ielts-theme.css">
+  <link rel="stylesheet" href="/css/print-scorecard.css">
+</head>
+<body style="background:#eef1f5; min-height:100vh; overflow-y:auto;">
+
+  <!-- Print Toolbar (Hidden on actual print) -->
+  <div class="print-btn-bar no-print">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span class="ielts-logo-badge" style="font-size:1.1rem;">IELTS</span>
+      <span style="font-weight:600; font-size:0.95rem;" id="print-mode-title">Diagnostic Scorecard Print Center</span>
+    </div>
+
+    <div style="display:flex; gap:10px;">
+      <button onclick="window.print()" class="admin-btn btn-success" style="padding:8px 20px; font-size:0.95rem;">
+        🖨 Print Now (A4 Spooler)
+      </button>
+      <button onclick="window.close()" class="admin-btn">
+        Close Window
+      </button>
+    </div>
+  </div>
+
+  <!-- Scorecard Host Container -->
+  <div id="scorecard-render-host" style="padding:20px;">
+    <div style="text-align:center; padding:50px; color:#586069;">
+      Loading diagnostic scorecard data...
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const sessionId = urlParams.get('session');
+      const mode = urlParams.get('mode');
+
+      const host = document.getElementById('scorecard-render-host');
+
+      if (mode === 'batch') {
+        document.getElementById('print-mode-title').textContent = 'Classroom Batch Print Center (All Candidates)';
+        await renderBatchPrint(host);
+      } else if (sessionId) {
+        await renderSingleScorecard(host, sessionId);
+      } else {
+        host.innerHTML = '<div style="text-align:center; padding:40px; color:#cf222e;">No session reference specified.</div>';
+      }
+    });
+
+    async function renderSingleScorecard(host, sessionId) {
+      try {
+        const res = await fetch(`/api/sessions/${sessionId}/scorecard`);
+        const data = await res.json();
+        if (!data.success || !data.report) throw new Error('Scorecard data missing');
+        host.innerHTML = buildScorecardHtml(data.report);
+      } catch (err) {
+        host.innerHTML = `<div style="text-align:center; padding:40px; color:#cf222e;">Error: ${err.message}</div>`;
+      }
+    }
+
+    async function renderBatchPrint(host) {
+      try {
+        const termsRes = await fetch('/api/invigilator/terminals');
+        const termsData = await termsRes.json();
+        const completed = (termsData.terminals || []).filter(t => t.status === 'completed');
+
+        if (completed.length === 0) {
+          host.innerHTML = '<div style="text-align:center; padding:50px; background:#fff; border-radius:6px;">No completed candidate sessions found to print yet.</div>';
+          return;
+        }
+
+        let fullHtml = '';
+        for (const term of completed) {
+          try {
+            const scoreRes = await fetch(`/api/sessions/${term.sessionId}/scorecard`);
+            const scoreData = await scoreRes.json();
+            if (scoreData.success && scoreData.report) {
+              fullHtml += `
+                <div class="scorecard-page page-break" style="margin-bottom:30px;">
+                  ${buildScorecardHtml(scoreData.report)}
+                </div>
+              `;
+            }
+          } catch (e) {}
+        }
+
+        host.innerHTML = fullHtml;
+      } catch (err) {
+        host.innerHTML = `<div style="text-align:center; padding:40px; color:#cf222e;">Error loading batch: ${err.message}</div>`;
+      }
+    }
+
+    function buildScorecardHtml(rep) {
+      const cand = rep.candidate || {};
+      const scores = rep.moduleScores || {};
+      const summary = rep.diagnosticSummary || {};
+
+      return `
+        <div class="scorecard-container">
+          <!-- Header -->
+          <div class="report-header">
+            <div class="report-header-left">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span class="ielts-logo-badge" style="font-size:1.4rem;">IELTS</span>
+                <span style="font-weight:700; color:#586069; font-size:0.9rem;">COMPUTER-DELIVERED</span>
+              </div>
+              <h1 style="margin-top:6px;">Diagnostic Assessment Profile</h1>
+              <p>Certified Mock Examination Performance & Weakness Prescription</p>
+            </div>
+
+            <div class="report-header-right">
+              <div class="report-badge-overall">
+                <div class="overall-label">Overall Band</div>
+                <div class="overall-val">${rep.overallBandScore ? rep.overallBandScore.toFixed(1) : '-'}</div>
+              </div>
+              <div class="cefr-tag">${rep.cefrLevel || ''}</div>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="candidate-meta-grid">
+            <div>
+              <div class="meta-field-label">Candidate Name</div>
+              <div class="meta-field-val">${cand.name || 'Candidate'}</div>
+            </div>
+            <div>
+              <div class="meta-field-label">Passport / NID</div>
+              <div class="meta-field-val">${cand.passport || 'N/A'}</div>
+            </div>
+            <div>
+              <div class="meta-field-label">Exam Type</div>
+              <div class="meta-field-val">${cand.examType || 'Academic'}</div>
+            </div>
+            <div>
+              <div class="meta-field-label">Target vs Achieved</div>
+              <div class="meta-field-val">${cand.targetBand || 7.0} → <strong>${rep.overallBandScore ? rep.overallBandScore.toFixed(1) : '-'}</strong></div>
+            </div>
+          </div>
+
+          <!-- 4-Module Score Cards -->
+          <div class="module-scores-grid">
+            <div class="module-score-card listening">
+              <div class="module-title-h4">Listening</div>
+              <div class="module-band-val">${scores.listening ? scores.listening.band.toFixed(1) : '-'}</div>
+              <div class="module-sub-stat">${scores.listening ? scores.listening.raw : 0}/40 Raw (${scores.listening ? scores.listening.accuracy : 0}%)</div>
+            </div>
+
+            <div class="module-score-card reading">
+              <div class="module-title-h4">Reading</div>
+              <div class="module-band-val">${scores.reading ? scores.reading.band.toFixed(1) : '-'}</div>
+              <div class="module-sub-stat">${scores.reading ? scores.reading.raw : 0}/40 Raw (${scores.reading ? scores.reading.accuracy : 0}%)</div>
+            </div>
+
+            <div class="module-score-card writing">
+              <div class="module-title-h4">Writing</div>
+              <div class="module-band-val">${scores.writing ? scores.writing.band.toFixed(1) : '-'}</div>
+              <div class="module-sub-stat">TA: ${scores.writing && scores.writing.subScores ? scores.writing.subScores.taskAchievement : '-'} | CC: ${scores.writing && scores.writing.subScores ? scores.writing.subScores.coherenceCohesion : '-'}</div>
+            </div>
+
+            <div class="module-score-card speaking">
+              <div class="module-title-h4">Speaking</div>
+              <div class="module-band-val">${scores.speaking ? scores.speaking.band.toFixed(1) : '-'}</div>
+              <div class="module-sub-stat">FC: ${scores.speaking && scores.speaking.subScores ? scores.speaking.subScores.fluencyCoherence : '-'} | LR: ${scores.speaking && scores.speaking.subScores ? scores.speaking.subScores.lexicalResource : '-'}</div>
+            </div>
+          </div>
+
+          <!-- Identified Weaknesses -->
+          <h3 class="section-heading-h3">Identified Weaknesses & Critical Error Points</h3>
+          <div class="diagnostic-box danger">
+            <ul>
+              ${(summary.criticalWeaknesses || []).map(w => `<li><strong>Weakness:</strong> ${w}</li>`).join('')}
+            </ul>
+          </div>
+
+          <!-- High-Yield Prescriptions -->
+          <h3 class="section-heading-h3">Prescriptive Recommendations</h3>
+          <div class="diagnostic-box">
+            <ul>
+              ${(summary.highYieldPrescriptions || []).map(p => `<li><strong>Prescription:</strong> ${p}</li>`).join('')}
+            </ul>
+          </div>
+
+          <!-- Vocabulary Upgrades Table -->
+          ${rep.writingEvaluation && rep.writingEvaluation.suggestedUpgrades && rep.writingEvaluation.suggestedUpgrades.length > 0 ? `
+            <h3 class="section-heading-h3">Targeted Lexical Upgrades</h3>
+            <table class="vocab-table">
+              <thead>
+                <tr>
+                  <th>Original Usage</th>
+                  <th>C1/C2 Recommended Upgrades</th>
+                  <th>Diagnostic Rationale</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rep.writingEvaluation.suggestedUpgrades.map(u => `
+                  <tr>
+                    <td><code>${u.current}</code></td>
+                    <td><strong>${u.recommended.join(', ')}</strong></td>
+                    <td><span style="color:#0969da; font-weight:600;">${u.impact}</span></td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          ` : ''}
+
+          <!-- 14-Day Study Plan -->
+          <h3 class="section-heading-h3" style="margin-top:20px;">14-Day Prescriptive Preparation Schedule</h3>
+          <table class="study-plan-table">
+            <thead>
+              <tr>
+                <th style="width:110px;">Timeline</th>
+                <th style="width:180px;">Target Area</th>
+                <th>Prescribed Action & Materials</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${(summary.studyPlan || []).map(item => `
+                <tr>
+                  <td><strong>${item.dayRange}</strong></td>
+                  <td><span style="color:#d9383a; font-weight:600;">${item.focus}</span></td>
+                  <td>${item.action}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+
+          <!-- Footer Verification -->
+          <div style="margin-top:24px; border-top:1px solid #e1e4e8; padding-top:12px; display:flex; justify-content:space-between; font-size:0.75rem; color:#8c959f;">
+            <div>Session Directory: ${rep.sessionId}</div>
+            <div>Evaluation Engine: ${rep.writingEvaluation ? rep.writingEvaluation.evaluatorMode : 'AI-Diagnostic'}</div>
+            <div>Keystone Open IELTS System - Official Verification Form</div>
+          </div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
