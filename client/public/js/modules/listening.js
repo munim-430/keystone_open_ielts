@@ -29,10 +29,24 @@ class ListeningModule {
             <button id="btn-audio-toggle" class="ctrl-btn" style="background:#0366d6;">▶ Play Audio</button>
             <span id="audio-part-label" style="font-weight:600; font-size:0.9rem;">Part 1 - Recording</span>
           </div>
+
+          <div style="display:flex; align-items:center; gap:8px; margin:0 10px;">
+            <span style="font-size:1rem;" title="Volume">🔊</span>
+            <input type="range" id="listening-volume-slider" min="0" max="1" step="0.05" value="1" style="width:80px; cursor:pointer;" title="Adjust Volume" />
+          </div>
+
           <div class="audio-progress-track">
             <div id="audio-progress-bar" class="audio-progress-fill"></div>
           </div>
-          <div style="font-size:0.85rem; color:#8c959f;" id="audio-time-label">00:00 / 30:00</div>
+          <div style="font-size:0.85rem; color:#8c959f; min-width:85px; text-align:right;" id="audio-time-label">00:00 / 30:00</div>
+
+          <!-- Part Navigation Tabs -->
+          <div class="listening-part-tabs" style="display:flex; gap:6px; margin-left:14px;">
+            <button class="listening-part-tab-btn active" data-part="0">Part 1</button>
+            <button class="listening-part-tab-btn" data-part="1">Part 2</button>
+            <button class="listening-part-tab-btn" data-part="2">Part 3</button>
+            <button class="listening-part-tab-btn" data-part="3">Part 4</button>
+          </div>
         </div>
 
         <!-- Listening Content Pane -->
@@ -44,6 +58,23 @@ class ListeningModule {
 
     const toggleBtn = document.getElementById('btn-audio-toggle');
     toggleBtn.onclick = () => this.toggleAudio();
+
+    const volSlider = document.getElementById('listening-volume-slider');
+    if (volSlider) {
+      volSlider.oninput = (e) => {
+        if (window.audioEngine && window.audioEngine.setVolume) {
+          window.audioEngine.setVolume(parseFloat(e.target.value));
+        }
+      };
+    }
+
+    const tabBtns = this.container.querySelectorAll('.listening-part-tab-btn');
+    tabBtns.forEach(btn => {
+      btn.onclick = () => {
+        const pIdx = parseInt(btn.dataset.part, 10);
+        this.loadPart(pIdx);
+      };
+    });
   }
 
   loadPart(partIdx) {
@@ -52,6 +83,12 @@ class ListeningModule {
     const pane = document.getElementById('listening-content-pane');
     const label = document.getElementById('audio-part-label');
     if (label) label.textContent = `${part.title}`;
+
+    const tabBtns = this.container.querySelectorAll('.listening-part-tab-btn');
+    tabBtns.forEach(btn => {
+      const idx = parseInt(btn.dataset.part, 10);
+      btn.classList.toggle('active', idx === partIdx);
+    });
 
     let html = `
       <div style="max-width:900px; margin:0 auto;">
@@ -152,6 +189,18 @@ class ListeningModule {
         alert('Listening audio has finished. You have 2 minutes to review your answers.');
       }
     }, 1000);
+  }
+
+  jumpToQuestion(qNum) {
+    if (!this.exam || !this.exam.parts) return;
+    const partIdx = this.exam.parts.findIndex(p => p.questions && p.questions.some(q => q.id === qNum));
+    if (partIdx !== -1 && partIdx !== this.currentPartIndex) {
+      this.loadPart(partIdx);
+    }
+    setTimeout(() => {
+      const el = document.getElementById(`q-card-${qNum}`);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 60);
   }
 
   destroy() {

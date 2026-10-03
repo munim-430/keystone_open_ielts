@@ -203,6 +203,8 @@
 .highlight-yellow { background-color: #ffeb3b; }
 .highlight-green  { background-color: #a8f5a2; }
 .highlight-pink   { background-color: #ffc4e1; }
+.candidate-note-highlight { border-bottom: 2px dashed #b45309; cursor: help; }
+.note-flag { font-size: 0.8rem; margin-left: 2px; cursor: help; vertical-align: super; }
 
 /* Text Selection Popover */
 .selection-toolbar {
@@ -364,6 +366,29 @@
   height: 100%;
   width: 0%;
   background: var(--ielts-red);
+}
+
+.listening-part-tab-btn {
+  padding: 4px 10px;
+  background: #444d56;
+  color: #c9d1d9;
+  border: 1px solid #586069;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.listening-part-tab-btn:hover {
+  background: #586069;
+  color: #fff;
+}
+
+.listening-part-tab-btn.active {
+  background: var(--ielts-red);
+  border-color: var(--ielts-red);
+  color: #fff;
 }
 
 /* Writing Module Components */

@@ -684,12 +684,285 @@ Write at least 250 words.`
   }
 };
 
+const GENERAL_TEST_1 = {
+  id: 'general_test_1',
+  title: 'Official IELTS General Training Practice Test 1',
+  type: 'General',
+
+  // MODULE 1: LISTENING (Identical across Academic and General Training)
+  listening: ACADEMIC_TEST_1.listening,
+
+  // MODULE 2: GENERAL TRAINING READING (40 Questions across 3 Sections)
+  reading: {
+    durationMinutes: 60,
+    passages: [
+      {
+        passageNumber: 1,
+        title: 'Section 1: Community Services & Social Survival',
+        subtitle: 'Community Education Evening Workshops & Central Library Borrowing Rules',
+        text: `COMMUNITY EDUCATION EVENING WORKSHOPS
+The Northbridge Community College offers a wide selection of practical evening workshops for adult residents. Classes commence the first Monday of each month and run for four consecutive weeks from 6:30 PM to 8:30 PM.
+Course WD-101 (Introductory Woodworking) is held in Workshop Shed B. Tuition is £95, which covers all lumber, safety goggles, and tool usage. Enrollees must wear closed-toe leather boots at all times; synthetic trainers are strictly prohibited due to sharp drop risks.
+Course FD-204 (Artisan Sourdough Baking) takes place in the Culinary Arts kitchen. The fee of £110 includes organic heirloom flour, proofing baskets, and an active sourdough starter jar that participants take home. Class size is capped at 12 students to ensure hands-on oven access.
+Course DG-305 (Digital Photography for Beginners) requires students to bring their own digital SLR or mirrorless camera with manual exposure controls. Smartphone cameras cannot be accommodated. Field trips occur on Saturday mornings between 9:00 AM and 11:30 AM in the Northbridge Botanical Gardens.
+Refund Policy: Written cancellation requests submitted more than 7 working days prior to course commencement receive a 90% refund minus a £15 administrative surcharge. No refunds are issued after the first session has begun.
+
+CITY CENTRAL LIBRARY - BORROWING GUIDELINES
+All registered residents of the municipal council area may obtain a free library card by presenting government-issued photo identification and proof of residential address (such as a recent utility bill dated within three months).
+Standard members may borrow up to 15 physical books for a borrowing duration of 21 days. Audiobooks, DVDs, and educational board games have a restricted loan period of 7 days with a limit of 4 items per cardholder.
+Renewals can be processed online through the municipal portal up to two times, provided another cardholder has not placed a reservation hold on the title. Overdue fines for standard adult collection items are assessed at 25 pence per item per day, capped at a maximum of £10 per volume. High-demand audiovisual materials incur overdue penalties of 75 pence per day.
+The library provides free Wi-Fi and 12 public desktop workstations in the Quiet Study Gallery on the second floor. Workstations are bookable in 60-minute blocks with a daily maximum of two hours per patron. Scanning services are provided free of charge, while black-and-white printing costs 10 pence per sheet and full-color printing costs 40 pence per sheet.`,
+        questions: [
+          { id: 1, type: 'tfng', prompt: 'Introductory Woodworking students are permitted to wear synthetic running shoes in the workshop.', answer: 'FALSE', questionType: 'true_false_not_given', explanation: 'Text states: synthetic trainers are strictly prohibited.' },
+          { id: 2, type: 'tfng', prompt: 'The sourdough baking course provides students with baking ingredients and equipment to keep.', answer: 'TRUE', questionType: 'true_false_not_given', explanation: 'Text states fee includes flour, proofing baskets, and active starter jar participants take home.' },
+          { id: 3, type: 'tfng', prompt: 'Students enrolled in Digital Photography can use modern smartphones with high-end cameras.', answer: 'FALSE', questionType: 'true_false_not_given', explanation: 'Text states: Smartphone cameras cannot be accommodated.' },
+          { id: 4, type: 'tfng', prompt: 'A full 100% refund is granted if a student cancels eight days before the course starts.', answer: 'FALSE', questionType: 'true_false_not_given', explanation: 'Text states: receive a 90% refund minus a £15 administrative surcharge.' },
+          { id: 5, type: 'tfng', prompt: 'Non-residents of Northbridge can enroll in community classes by paying an additional surcharge.', answer: 'NOT GIVEN', questionType: 'true_false_not_given', explanation: 'The text mentions adult residents but gives no information regarding whether non-residents may enroll with a surcharge.' },
+          { id: 6, type: 'tfng', prompt: 'Standard library book loans can be extended up to two times if no other user has reserved them.', answer: 'TRUE', questionType: 'true_false_not_given', explanation: 'Text states: Renewals can be processed online... up to two times, provided another cardholder has not placed a reservation hold.' },
+          { id: 7, type: 'tfng', prompt: 'Scanning documents at the library costs the same as black-and-white printing.', answer: 'FALSE', questionType: 'true_false_not_given', explanation: 'Text states: Scanning services are provided free of charge, while black-and-white printing costs 10 pence.' },
+          { id: 8, type: 'fill_blank', prompt: 'Woodworking tuition fee includes lumber, tool usage, and ______', answer: ['safety goggles', 'goggles'], questionType: 'form_completion' },
+          { id: 9, type: 'fill_blank', prompt: 'The maximum class enrollment for sourdough baking is ______ students.', answer: ['12', 'twelve'], questionType: 'form_completion' },
+          { id: 10, type: 'fill_blank', prompt: 'Saturday field trips for photography take place at the ______ Gardens.', answer: ['northbridge botanical', 'botanical'], questionType: 'form_completion' },
+          { id: 11, type: 'fill_blank', prompt: 'Proof of address for library membership must be dated within ______ months.', answer: ['3', 'three'], questionType: 'form_completion' },
+          { id: 12, type: 'fill_blank', prompt: 'Standard physical books can be kept for a period of ______ days.', answer: ['21', 'twenty-one', 'twenty one'], questionType: 'form_completion' },
+          { id: 13, type: 'fill_blank', prompt: 'Maximum overdue fine per standard volume is capped at £______', answer: ['10', '10 pounds'], questionType: 'form_completion' },
+          { id: 14, type: 'fill_blank', prompt: 'Public computers are located in the Quiet Study Gallery on the ______ floor.', answer: ['second', '2nd'], questionType: 'form_completion' }
+        ]
+      },
+      {
+        passageNumber: 2,
+        title: 'Section 2: Workplace Context & Employee Training',
+        subtitle: 'Horizon Technologies Remote Work Policy & Professional Development Grants',
+        text: `HORIZON TECHNOLOGIES - HYBRID WORK GUIDELINES
+Horizon Technologies supports a hybrid working model designed to promote work-life balance while maintaining team synergy. Full-time personnel who have successfully completed their three-month probationary period are eligible to apply for hybrid scheduling.
+Under the Core Hybrid Agreement, staff may work remotely for a maximum of two business days per week. Tuesdays and Thursdays are designated as Mandatory Collaborative Anchor Days, during which all team members must be physically present at the regional headquarters for sprint planning, departmental alignment, and cross-functional reviews.
+Remote Work Environment Requirements: Employees working from home must have a dedicated workspace free from noise and distractions. High-speed broadband internet with a minimum download velocity of 50 Mbps and upload velocity of 15 Mbps is mandatory to support uninterrupted video conferencing. The company provides a one-time ergonomic equipment stipend of £350 upon approval of remote status, intended for the purchase of an adjustable desk chair or external monitor.
+Cybersecurity Compliance: Personnel must connect via the enterprise Virtual Private Network (VPN) with multi-factor authentication (MFA) enabled. Transferring company data to unauthorized personal flash drives or unapproved cloud storage accounts constitutes a severe security breach that will result in disciplinary action up to immediate contract termination.
+
+PROFESSIONAL DEVELOPMENT GRANTS & STUDY LEAVE
+Horizon Technologies firmly believes that continuous learning drives technological innovation. Each fiscal year, employees with at least twelve months of continuous service may apply for a Professional Development Grant of up to £1,500.
+Eligible programs include accredited university certificates, industry-standard vendor certifications (such as AWS, Cisco, or Scrum Alliance), and specialized technical workshops directly relevant to the applicant's existing or anticipated job responsibilities. Recreational or purely hobbyist courses are not eligible for funding.
+Application Process: Applicants must submit a formal Development Proposal to their direct department manager at least six weeks prior to course registration. The proposal must detail the course syllabus, total expenditure, and a clear explanation of how the qualification will benefit current project deliverables.
+Upon manager endorsement, the proposal is forwarded to Human Resources for budgetary sign-off. Approved candidates receive 50% tuition disbursement upfront, with the remaining 50% reimbursed upon submission of proof of passing or certification completion with a grade of 'B' or higher.
+Study Leave: Employees pursuing approved credentialing are entitled to up to five paid study days per calendar year to attend examinations or intensive revision bootcamps.`,
+        questions: [
+          { id: 15, type: 'fill_blank', prompt: 'To be eligible for hybrid scheduling, staff must complete a ______ probationary period.', answer: ['three-month', 'three month', '3-month', '3 month'], questionType: 'summary_completion' },
+          { id: 16, type: 'fill_blank', prompt: 'Staff are allowed to work remotely for up to ______ business days each week.', answer: ['two', '2'], questionType: 'summary_completion' },
+          { id: 17, type: 'fill_blank', prompt: 'All team members must be at the office on Tuesdays and ______ for anchor days.', answer: ['thursdays', 'thursday'], questionType: 'summary_completion' },
+          { id: 18, type: 'fill_blank', prompt: 'Remote broadband upload speed must be at least ______ Mbps.', answer: ['15', '15 mbps'], questionType: 'summary_completion' },
+          { id: 19, type: 'fill_blank', prompt: 'The one-time ergonomic stipend provided by Horizon Technologies is £______', answer: ['350', '350 pounds'], questionType: 'summary_completion' },
+          { id: 20, type: 'fill_blank', prompt: 'The maximum annual professional development grant available is £______', answer: ['1500', '1,500'], questionType: 'summary_completion' },
+          { id: 21, type: 'fill_blank', prompt: 'Applications for educational funding must be submitted at least ______ weeks before registration.', answer: ['six', '6'], questionType: 'summary_completion' },
+          {
+            id: 22,
+            type: 'multiple_choice',
+            prompt: 'Which employees are eligible to apply for the Professional Development Grant?',
+            options: ['A) Any employee starting from their first day of probation', 'B) Employees with a minimum of 12 months continuous service', 'C) Only senior engineering leads and team directors'],
+            answer: 'B',
+            questionType: 'multiple_choice'
+          },
+          {
+            id: 23,
+            type: 'multiple_choice',
+            prompt: 'Under what condition is the second half of the course tuition reimbursed?',
+            options: ['A) Upon submitting an expense receipt signed by the manager', 'B) After working an extra 6 months at the company', 'C) Upon providing proof of passing with a grade of B or higher'],
+            answer: 'C',
+            questionType: 'multiple_choice'
+          },
+          {
+            id: 24,
+            type: 'multiple_choice',
+            prompt: 'How many paid study leave days per year are eligible employees granted?',
+            options: ['A) Up to two days', 'B) Up to five days', 'C) Up to ten days'],
+            answer: 'B',
+            questionType: 'multiple_choice'
+          },
+          {
+            id: 25,
+            type: 'multiple_choice',
+            prompt: 'Transferring company data to a personal flash drive is classified as:',
+            options: ['A) Acceptable if working outside regular business hours', 'B) A severe security breach subject to immediate dismissal', 'C) Permissible after informing the departmental manager'],
+            answer: 'B',
+            questionType: 'multiple_choice'
+          },
+          {
+            id: 26,
+            type: 'multiple_choice',
+            prompt: 'Which of the following courses would be approved for grant funding?',
+            options: ['A) An accredited cloud computing architecture certification', 'B) An evening painting and pottery hobby workshop', 'C) An introductory conversational French class for vacationers'],
+            answer: 'A',
+            questionType: 'multiple_choice'
+          },
+          {
+            id: 27,
+            type: 'multiple_choice',
+            prompt: 'What hardware purchase is the ergonomic stipend intended to support?',
+            options: ['A) High-end gaming headsets and mechanical keyboards', 'B) An adjustable desk chair or external monitor', 'C) A personal smartphone upgrade'],
+            answer: 'B',
+            questionType: 'multiple_choice'
+          }
+        ]
+      },
+      {
+        passageNumber: 3,
+        title: 'Section 3: General Interest Extended Text',
+        subtitle: 'The Architectural Evolution and Modern Resurgence of Windmills',
+        text: `Paragraph A: For centuries before the dawn of fossil-fuel combustion and widespread electrification, humanity harvested kinetic atmospheric energy to accomplish arduous mechanical labor. Early historical chronicles indicate that rudimentary vertical-axis windmills were utilized in Persia (modern-day Iran) as early as the 7th century CE for grinding grain and drawing groundwater. These panemone structures featured vertical sails attached to a central wooden axle, moving in circular rotation within an enclosed mud-brick housing engineered to funnel dominant desert winds. Though mechanically inefficient by modern engineering standards, they represented a seminal triumph of human ingenuity over geographic adversity.
+
+Paragraph B: By the 12th century, horizontal-axis windmills had emerged across Northwestern Europe, particularly across the lowlands of Flanders, England, and the Netherlands. Unlike their Persian precursors, European post mills utilized vertical rotating sails affixed to a horizontal shaft. The entire wooden superstructure was balanced upon a colossal central upright post, permitting the mill operator to physically rotate the building to track shifting wind directions. Later refinements birthed the tower mill, characterized by an immobile stone or masonry tower crowned by a rotating wooden cap. This engineering breakthrough shielded heavy grinding gears from harsh coastal dampness and vastly improved operational longevity.
+
+Paragraph C: Beyond agricultural milling, the Dutch adapted wind power for large-scale hydrological reclamation. In the low-lying Rhine-Meuse delta, wind-driven scoop wheels and Archimedean screw pumps were organized in progressive tiered drainage networks known as molengangen. These interconnected windmills systematically pumped vast volumes of stagnant marshland and inland lakes into surrounding polders and defensive sea canals. Without this monumental wind-powered civil engineering apparatus, large swaths of the contemporary Netherlands would remain submerged beneath the North Sea.
+
+Paragraph D: The dawn of the 19th-century Industrial Revolution dealt a profound blow to traditional wind power. The invention of James Watt's continuous-rotary steam engine unshackled factories from meteorological dependency, allowing manufacturers to operate independent of seasonal wind patterns. Steam-driven mills operated reliably around the clock and could be constructed directly beside deepwater ports and rail hubs. By the early 20th century, thousands of historic wooden windmills had fallen into dilapidation or been demolished.
+
+Paragraph E: However, the environmental repercussions of unchecked carbon combustion in the late 20th century sparked a global renaissance in aerodynamic energy capture. Modern multi-megawatt wind turbines bear little cosmetic resemblance to their timber ancestors, yet they operate on identical aerodynamic principles of lift and torque. Equipped with carbon-fiber reinforced blades, automated pitch control sensors, and direct-drive permanent magnet generators, contemporary turbines can achieve power coefficients exceeding 45%. Today, offshore wind farms across the North Sea and Baltic waters contribute significant baseload power to the European electric grid, completing a historic circle of renewable innovation.`,
+        questions: [
+          {
+            id: 28,
+            type: 'matching_headings',
+            prompt: 'Paragraph A',
+            options: [
+              'i. The transition to steam and mechanical decline',
+              'ii. Early origins and vertical-axis Persian prototypes',
+              'iii. Reclaiming submerged land through Dutch water networks',
+              'iv. Modern high-tech aerodynamic resurgence',
+              'v. Structural evolution: post mills and masonry tower mills',
+              'vi. Environmental opposition to coastal turbines'
+            ],
+            answer: 'ii',
+            questionType: 'matching_headings'
+          },
+          {
+            id: 29,
+            type: 'matching_headings',
+            prompt: 'Paragraph B',
+            options: [
+              'i. The transition to steam and mechanical decline',
+              'ii. Early origins and vertical-axis Persian prototypes',
+              'iii. Reclaiming submerged land through Dutch water networks',
+              'iv. Modern high-tech aerodynamic resurgence',
+              'v. Structural evolution: post mills and masonry tower mills',
+              'vi. Environmental opposition to coastal turbines'
+            ],
+            answer: 'v',
+            questionType: 'matching_headings'
+          },
+          {
+            id: 30,
+            type: 'matching_headings',
+            prompt: 'Paragraph C',
+            options: [
+              'i. The transition to steam and mechanical decline',
+              'ii. Early origins and vertical-axis Persian prototypes',
+              'iii. Reclaiming submerged land through Dutch water networks',
+              'iv. Modern high-tech aerodynamic resurgence',
+              'v. Structural evolution: post mills and masonry tower mills',
+              'vi. Environmental opposition to coastal turbines'
+            ],
+            answer: 'iii',
+            questionType: 'matching_headings'
+          },
+          {
+            id: 31,
+            type: 'matching_headings',
+            prompt: 'Paragraph D',
+            options: [
+              'i. The transition to steam and mechanical decline',
+              'ii. Early origins and vertical-axis Persian prototypes',
+              'iii. Reclaiming submerged land through Dutch water networks',
+              'iv. Modern high-tech aerodynamic resurgence',
+              'v. Structural evolution: post mills and masonry tower mills',
+              'vi. Environmental opposition to coastal turbines'
+            ],
+            answer: 'i',
+            questionType: 'matching_headings'
+          },
+          {
+            id: 32,
+            type: 'matching_headings',
+            prompt: 'Paragraph E',
+            options: [
+              'i. The transition to steam and mechanical decline',
+              'ii. Early origins and vertical-axis Persian prototypes',
+              'iii. Reclaiming submerged land through Dutch water networks',
+              'iv. Modern high-tech aerodynamic resurgence',
+              'v. Structural evolution: post mills and masonry tower mills',
+              'vi. Environmental opposition to coastal turbines'
+            ],
+            answer: 'iv',
+            questionType: 'matching_headings'
+          },
+          { id: 33, type: 'tfng', prompt: 'Persian panemone windmills rotated on a horizontal axis like modern turbines.', answer: 'FALSE', questionType: 'true_false_not_given', explanation: 'Text states they were rudimentary vertical-axis windmills with vertical sails.' },
+          { id: 34, type: 'tfng', prompt: 'The masonry tower mill was more resistant to dampness than wooden post mills.', answer: 'TRUE', questionType: 'true_false_not_given', explanation: 'Text states: shielded heavy grinding gears from harsh coastal dampness and vastly improved operational longevity.' },
+          { id: 35, type: 'tfng', prompt: 'Dutch drainage networks used Archimedean screw pumps powered by wind.', answer: 'TRUE', questionType: 'true_false_not_given', explanation: 'Text states: wind-driven scoop wheels and Archimedean screw pumps were organized in progressive tiered drainage networks.' },
+          { id: 36, type: 'tfng', prompt: 'James Watt built the first water-powered factory along the North Sea.', answer: 'NOT GIVEN', questionType: 'true_false_not_given', explanation: 'Text mentions Watt invented the continuous-rotary steam engine, but does not state where he built his first factory.' },
+          { id: 37, type: 'fill_blank', prompt: 'Early Persian windmills were used for grinding grain and drawing ______', answer: ['groundwater', 'water'], questionType: 'summary_completion' },
+          { id: 38, type: 'fill_blank', prompt: 'European tower mills had a stone body crowned by a rotating wooden ______', answer: ['cap'], questionType: 'summary_completion' },
+          { id: 39, type: 'fill_blank', prompt: 'Steam engines removed reliance on unpredictable ______ patterns.', answer: ['wind', 'meteorological'], questionType: 'summary_completion' },
+          { id: 40, type: 'fill_blank', prompt: 'Modern turbine blades are reinforced using ______ fiber.', answer: ['carbon'], questionType: 'summary_completion' }
+        ]
+      }
+    ]
+  },
+
+  // MODULE 3: GENERAL TRAINING WRITING (Task 1: Letter, Task 2: Essay)
+  writing: {
+    durationMinutes: 60,
+    tasks: [
+      {
+        taskNumber: 1,
+        title: 'Writing Task 1: Formal Letter of Complaint & Request',
+        type: 'letter',
+        minWords: 150,
+        suggestedMinutes: 20,
+        prompt: `You should spend about 20 minutes on this task.
+
+You recently rented an apartment through a rental agency, but upon moving into the property last week, you discovered several serious maintenance problems that were not disclosed beforehand.
+
+Write a formal letter to the property manager. In your letter:
+• Introduce yourself and provide details of the apartment and when you moved in
+• Explain the specific maintenance issues you encountered
+• State the immediate actions and repairs you expect the agency to undertake.
+
+You do NOT need to write any addresses.
+Begin your letter as follows:
+Dear Sir or Madam,
+
+Write at least 150 words.`
+      },
+      {
+        taskNumber: 2,
+        title: 'Writing Task 2: Discursive Essay',
+        type: 'essay',
+        minWords: 250,
+        suggestedMinutes: 40,
+        prompt: `You should spend about 40 minutes on this task.
+
+Write about the following topic:
+
+In many countries around the world, an increasing number of young adults choose to continue living with their parents well into their late twenties or thirties rather than moving out to live independently.
+
+Do you think the advantages of this trend outweigh the disadvantages?
+
+Give reasons for your answer and include any relevant examples from your own knowledge or experience.
+
+Write at least 250 words.`
+      }
+    ]
+  },
+
+  // MODULE 4: SPEAKING (Identical across Academic and General Training)
+  speaking: ACADEMIC_TEST_1.speaking
+};
+
 const EXAM_BANKS = {
-  academic_test_1: ACADEMIC_TEST_1
+  academic_test_1: ACADEMIC_TEST_1,
+  general_test_1: GENERAL_TEST_1
 };
 
 module.exports = {
   EXAM_BANKS,
-  getExamById: (id) => EXAM_BANKS[id] || ACADEMIC_TEST_1,
+  getExamById: (id) => EXAM_BANKS[id] || (id && id.includes('general') ? GENERAL_TEST_1 : ACADEMIC_TEST_1),
   listAvailableExams: () => Object.values(EXAM_BANKS).map(e => ({ id: e.id, title: e.title, type: e.type }))
 };
+

@@ -21,6 +21,10 @@ class WritingModule {
   }
 
   renderWritingLayout() {
+    const task1Label = (this.exam && this.exam.tasks && this.exam.tasks[0] && this.exam.tasks[0].type === 'letter') 
+      ? 'Task 1 (Letter)' 
+      : 'Task 1 (Report)';
+
     this.container.innerHTML = `
       <div class="split-container" id="writing-split-container">
         <!-- Left: Prompt & Graphic Pane -->
@@ -36,7 +40,7 @@ class WritingModule {
           <!-- Task Switcher Tabs -->
           <div class="writing-task-tabs">
             <button class="writing-tab-btn active" id="tab-task1" onclick="window.writingModuleInstance.switchTask(1)">
-              Task 1 (Report)
+              ${task1Label}
             </button>
             <button class="writing-tab-btn" id="tab-task2" onclick="window.writingModuleInstance.switchTask(2)">
               Task 2 (Essay)

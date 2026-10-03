@@ -218,9 +218,24 @@ class SpeakingModule {
     if (statusBox) statusBox.style.display = 'none';
 
     try {
-      const audioBlob = await window.audioEngine.stopRecording();
-      if (audioBlob && audioBlob.size > 0 && window.IELTS_STATE.sessionId) {
-        window.apiClient.uploadAudio(window.IELTS_STATE.sessionId, this.currentPartName, audioBlob);
+      const result = await window.audioEngine.stopRecording();
+      const audioBlob = (result && result.blob) ? result.blob : (result instanceof Blob ? result : null);
+      const transcript = (result && result.transcript) ? result.transcript : '';
+
+      if (window.IELTS_STATE && window.IELTS_STATE.sessionId) {
+        if (!window.IELTS_STATE.answers.speaking.transcripts) {
+          window.IELTS_STATE.answers.speaking.transcripts = {};
+        }
+        if (transcript) {
+          window.IELTS_STATE.answers.speaking.transcripts[this.currentPartName] = transcript;
+          window.apiClient.saveAnswers(window.IELTS_STATE.sessionId, 'speaking', {
+            transcripts: window.IELTS_STATE.answers.speaking.transcripts
+          });
+        }
+
+        if (audioBlob && audioBlob.size > 0) {
+          await window.apiClient.uploadAudio(window.IELTS_STATE.sessionId, this.currentPartName, audioBlob, transcript);
+        }
       }
     } catch (e) {
       console.warn('Audio upload warning:', e);

@@ -28,19 +28,53 @@ function getClientIp(req) {
  * Creates candidate session and physical directory: YYYYMMDD_HHMM_[PASSPORT]_[NAME]
  */
 router.post('/login', (req, res) => {
-  const { name, passport, targetBand, examType, testSetId, terminalId } = req.body;
+  const { name, passport, targetBand, examType, testSetId, terminalId, forceNew } = req.body;
 
   if (!name || !passport) {
     return res.status(400).json({ error: 'Candidate Name and Passport / NID are required.' });
   }
 
   const clientIp = getClientIp(req);
+
+  // Check if an existing in-progress session exists for this candidate
+  if (!forceNew) {
+    const existingSession = sessionManager.findActiveSession(passport);
+    if (existingSession) {
+      // Update terminal info
+      existingSession.terminal.ip = clientIp;
+      if (terminalId) existingSession.terminal.terminalId = terminalId;
+      existingSession.terminal.lastHeartbeat = new Date().toISOString();
+      sessionManager.saveSessionMetadata(existingSession.sessionId, existingSession);
+
+      if (req.app.get('broadcastToInvigilators')) {
+        req.app.get('broadcastToInvigilators')({
+          type: 'CANDIDATE_RECONNECTED',
+          session: existingSession
+        });
+      }
+
+      return res.json({
+        success: true,
+        sessionId: existingSession.sessionId,
+        candidate: existingSession.candidate,
+        terminal: existingSession.terminal,
+        status: existingSession.status,
+        currentModule: existingSession.currentModule,
+        resumed: true,
+        session: existingSession
+      });
+    }
+  }
+
+  const cleanExamType = examType === 'General' ? 'General' : 'Academic';
+  const defaultTestSet = cleanExamType === 'General' ? 'general_test_1' : 'academic_test_1';
+
   const session = sessionManager.createSession({
     name,
     passport,
     targetBand: targetBand || 7.0,
-    examType: examType || 'Academic',
-    testSetId: testSetId || 'academic_test_1',
+    examType: cleanExamType,
+    testSetId: testSetId || defaultTestSet,
     clientIp,
     terminalId: terminalId || `PC-${clientIp.split('.').pop() || '01'}`
   });
@@ -58,7 +92,8 @@ router.post('/login', (req, res) => {
     sessionId: session.sessionId,
     candidate: session.candidate,
     terminal: session.terminal,
-    status: session.status
+    status: session.status,
+    resumed: false
   });
 });
 
@@ -167,7 +202,7 @@ router.post('/:sessionId/save-answers', (req, res) => {
  * Accepts audio recording from candidate microphone for Speaking parts
  */
 router.post('/:sessionId/upload-audio', upload.single('audio'), (req, res) => {
-  const { partName } = req.body;
+  const { partName, transcript } = req.body;
   if (!req.file) {
     return res.status(400).json({ error: 'No audio file provided' });
   }
@@ -177,7 +212,8 @@ router.post('/:sessionId/upload-audio', upload.single('audio'), (req, res) => {
       req.params.sessionId,
       partName || 'part',
       req.file.buffer,
-      req.file.mimetype || 'audio/webm'
+      req.file.mimetype || 'audio/webm',
+      transcript || ''
     );
     res.json({ success: true, file: saved });
   } catch (err) {

@@ -15,6 +15,18 @@ function initLoginModule(onLoginSuccess) {
   const termInput = document.getElementById('terminal-id-input');
   if (termInput) termInput.value = terminalParam;
 
+  const examTypeSelect = document.getElementById('cand-exam-type');
+  const testSetSelect = document.getElementById('cand-test-set');
+  if (examTypeSelect && testSetSelect) {
+    examTypeSelect.onchange = () => {
+      if (examTypeSelect.value === 'General') {
+        testSetSelect.value = 'general_test_1';
+      } else {
+        testSetSelect.value = 'academic_test_1';
+      }
+    };
+  }
+
   form.onsubmit = async (e) => {
     e.preventDefault();
     errorAlert.style.display = 'none';

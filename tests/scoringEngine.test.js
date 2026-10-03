@@ -88,3 +88,34 @@ test('Full evaluation of Listening and Reading test modules', () => {
   assert.strictEqual(rResult.bandScore, 4.5);
   assert.ok(rResult.details.length === 40);
 });
+
+test('General Training Reading Module evaluation & question bank verification', () => {
+  const gtExam = getExamById('general_test_1');
+  assert.ok(gtExam);
+  assert.strictEqual(gtExam.type, 'General');
+  assert.strictEqual(gtExam.reading.passages.length, 3);
+  
+  // Total questions across all sections must equal exactly 40
+  const totalQuestions = gtExam.reading.passages.reduce((sum, p) => sum + p.questions.length, 0);
+  assert.strictEqual(totalQuestions, 40);
+
+  // Simulate perfect GT Reading answers
+  const perfectGtReading = {};
+  for (const p of gtExam.reading.passages) {
+    for (const q of p.questions) {
+      perfectGtReading[q.id] = Array.isArray(q.answer) ? q.answer[0] : q.answer;
+    }
+  }
+
+  const gtResult = scoringEngine.evaluateReading(perfectGtReading, gtExam.reading, 'General');
+  assert.strictEqual(gtResult.rawScore, 40);
+  assert.strictEqual(gtResult.bandScore, 9.0);
+  assert.strictEqual(gtResult.accuracyPercentage, 100);
+
+  // Verify writing tasks for General Training
+  assert.strictEqual(gtExam.writing.tasks.length, 2);
+  assert.strictEqual(gtExam.writing.tasks[0].type, 'letter');
+  assert.strictEqual(gtExam.writing.tasks[0].minWords, 150);
+  assert.strictEqual(gtExam.writing.tasks[1].type, 'essay');
+  assert.strictEqual(gtExam.writing.tasks[1].minWords, 250);
+});

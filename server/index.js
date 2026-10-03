@@ -23,20 +23,34 @@ const wss = new WebSocketServer({ server, path: '/ws' });
 const clientSockets = new Map(); // sessionId -> WebSocket
 const invigilatorSockets = new Set(); // Set of WebSockets
 
-// Utility to find all local LAN IPv4 addresses
+// Utility to find all local LAN IPv4 addresses, prioritizing physical network adapters
 function getLocalIpAddresses() {
   const interfaces = os.networkInterfaces();
-  const addresses = [];
+  const physicalAddresses = [];
+  const virtualAddresses = [];
+
+  const virtualPatterns = /virtual|vmware|vbox|vethernet|hyper-v|wsl|pseudo|loopback/i;
+  const physicalPatterns = /wi-fi|wlan|ethernet|local area connection|eth\d|en\d|wlan\d/i;
 
   for (const name of Object.keys(interfaces)) {
+    const isVirtual = virtualPatterns.test(name);
+    const isExplicitPhysical = physicalPatterns.test(name);
+
     for (const iface of interfaces[name]) {
       // Skip internal (127.0.0.1) and non-ipv4 addresses
       if (iface.family === 'IPv4' && !iface.internal) {
-        addresses.push({ interface: name, ip: iface.address });
+        const item = { interface: name, ip: iface.address };
+        if (isVirtual) {
+          virtualAddresses.push(item);
+        } else if (isExplicitPhysical) {
+          physicalAddresses.unshift(item);
+        } else {
+          physicalAddresses.push(item);
+        }
       }
     }
   }
-  return addresses;
+  return [...physicalAddresses, ...virtualAddresses];
 }
 
 // Broadcasters for app context

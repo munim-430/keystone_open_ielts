@@ -110,6 +110,7 @@ test('Classroom Concurrent Terminals Stress Test', async (t) => {
     const fakeAudio = new Blob(['simulated candidate audio bytes chunk'], { type: 'audio/webm' });
     formData.append('audio', fakeAudio, 'part1.webm');
     formData.append('partName', 'part1_q1');
+    formData.append('transcript', 'This is simulated candidate speech transcript for stress testing.');
 
     return fetch(`${baseUrl}/api/sessions/${sessionId}/upload-audio`, {
       method: 'POST',

@@ -6,6 +6,8 @@
 class AudioEngine {
   constructor() {
     this.audioCtx = null;
+    this.masterGain = null;
+    this.currentVolume = 1.0;
     this.mediaRecorder = null;
     this.recordedChunks = [];
     this.analyser = null;
@@ -13,8 +15,12 @@ class AudioEngine {
     this.visualizerAnimationId = null;
     this.synth = window.speechSynthesis;
     this.examinerVoice = null;
+    this.recognition = null;
+    this.currentTranscript = '';
+    this.isRecognizing = false;
 
     this.initVoices();
+    this.initSpeechRecognition();
     if (this.synth && this.synth.onvoiceschanged !== undefined) {
       this.synth.onvoiceschanged = () => this.initVoices();
     }
@@ -25,8 +31,57 @@ class AudioEngine {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       this.audioCtx = new AudioContext();
     }
+    if (!this.masterGain && this.audioCtx) {
+      this.masterGain = this.audioCtx.createGain();
+      this.masterGain.gain.setValueAtTime(this.currentVolume, this.audioCtx.currentTime);
+      this.masterGain.connect(this.audioCtx.destination);
+    }
     if (this.audioCtx.state === 'suspended') {
       this.audioCtx.resume();
+    }
+  }
+
+  setVolume(level) {
+    const clamped = Math.max(0, Math.min(1, parseFloat(level) || 0));
+    this.currentVolume = clamped;
+    if (this.masterGain && this.audioCtx) {
+      this.masterGain.gain.setValueAtTime(clamped, this.audioCtx.currentTime);
+    }
+    return clamped;
+  }
+
+  initSpeechRecognition() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) return;
+
+    try {
+      this.recognition = new SpeechRecognition();
+      this.recognition.continuous = true;
+      this.recognition.interimResults = false;
+      this.recognition.lang = 'en-US';
+
+      this.recognition.onresult = (event) => {
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            const piece = event.results[i][0].transcript.trim();
+            if (piece) {
+              this.currentTranscript = (this.currentTranscript + ' ' + piece).trim();
+            }
+          }
+        }
+      };
+
+      this.recognition.onerror = (e) => {
+        console.warn('Speech recognition notice:', e.error);
+      };
+
+      this.recognition.onend = () => {
+        if (this.isRecognizing) {
+          try { this.recognition.start(); } catch (err) {}
+        }
+      };
+    } catch (e) {
+      console.warn('Speech recognition init error:', e);
     }
   }
 
@@ -50,7 +105,7 @@ class AudioEngine {
       const gain = this.audioCtx.createGain();
 
       osc.connect(gain);
-      gain.connect(this.audioCtx.destination);
+      gain.connect(this.masterGain || this.audioCtx.destination);
 
       if (type === 'start') {
         // High melodic two-tone chime
@@ -141,7 +196,7 @@ class AudioEngine {
   }
 
   /**
-   * Starts candidate voice recording
+   * Starts candidate voice recording with continuous STT transcript capture
    */
   startRecording(canvasElement = null) {
     if (!this.micStream) {
@@ -149,6 +204,15 @@ class AudioEngine {
     }
 
     this.recordedChunks = [];
+    this.currentTranscript = '';
+    this.isRecognizing = true;
+
+    if (this.recognition) {
+      try {
+        this.recognition.start();
+      } catch (err) {}
+    }
+
     let mimeType = 'audio/webm;codecs=opus';
     if (!MediaRecorder.isTypeSupported(mimeType)) {
       mimeType = 'audio/webm';
@@ -170,23 +234,32 @@ class AudioEngine {
   }
 
   /**
-   * Stops voice recording and returns Blob
+   * Stops voice recording and returns Blob + captured transcript
    */
   stopRecording() {
+    this.isRecognizing = false;
+    if (this.recognition) {
+      try {
+        this.recognition.stop();
+      } catch (err) {}
+    }
+
     return new Promise((resolve) => {
       if (this.visualizerAnimationId) {
         cancelAnimationFrame(this.visualizerAnimationId);
       }
 
+      const transcript = this.currentTranscript.trim();
+
       if (!this.mediaRecorder || this.mediaRecorder.state === 'inactive') {
         const blob = new Blob(this.recordedChunks, { type: 'audio/webm' });
-        resolve(blob);
+        resolve({ blob, transcript });
         return;
       }
 
       this.mediaRecorder.onstop = () => {
         const blob = new Blob(this.recordedChunks, { type: 'audio/webm' });
-        resolve(blob);
+        resolve({ blob, transcript });
       };
 
       this.mediaRecorder.stop();

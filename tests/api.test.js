@@ -166,3 +166,83 @@ test('API Integration - Full candidate lifecycle and invigilator monitoring', as
   assert.ok(csvText.includes('David Beckham'));
   assert.ok(csvText.includes('B9012345'));
 });
+
+test('API Integration - In-flight session resumption and audio transcript handling', async (t) => {
+  const { server, baseUrl } = await startTestServer();
+  const createdSessions = [];
+
+  t.after(() => {
+    server.close();
+    for (const sid of createdSessions) {
+      const dir = sessionManager.getSessionPath(sid);
+      if (fs.existsSync(dir)) fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  // 1. Initial Login
+  const loginRes = await fetch(`${baseUrl}/api/sessions/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: 'Emma Watson',
+      passport: 'EW887766',
+      targetBand: 8.0,
+      examType: 'General',
+      terminalId: 'PC-09'
+    })
+  });
+  assert.strictEqual(loginRes.status, 200);
+  const loginData = await loginRes.json();
+  assert.ok(loginData.success);
+  assert.strictEqual(loginData.resumed, false);
+  createdSessions.push(loginData.sessionId);
+
+  // 2. Candidate saves reading answers
+  await fetch(`${baseUrl}/api/sessions/${loginData.sessionId}/save-answers`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      moduleName: 'reading',
+      answers: { 1: 'TRUE', 2: 'FALSE' }
+    })
+  });
+
+  // 3. Candidate PC accidentally refreshes / reconnects with same passport
+  const reconnectRes = await fetch(`${baseUrl}/api/sessions/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: 'Emma Watson',
+      passport: 'EW887766',
+      targetBand: 8.0,
+      examType: 'General',
+      terminalId: 'PC-09'
+    })
+  });
+  assert.strictEqual(reconnectRes.status, 200);
+  const reconnectData = await reconnectRes.json();
+  assert.ok(reconnectData.success);
+  assert.strictEqual(reconnectData.resumed, true);
+  assert.strictEqual(reconnectData.sessionId, loginData.sessionId);
+  assert.strictEqual(reconnectData.session.answers.reading['1'], 'TRUE');
+
+  // 4. Upload Speaking audio with speech transcript
+  const formData = new FormData();
+  const blob = new Blob(['speech audio test stream'], { type: 'audio/webm' });
+  formData.append('audio', blob, 'p1_q1.webm');
+  formData.append('partName', 'p1_q1');
+  formData.append('transcript', 'I live in central London and enjoy reading historical literature.');
+
+  const audioRes = await fetch(`${baseUrl}/api/sessions/${loginData.sessionId}/upload-audio`, {
+    method: 'POST',
+    body: formData
+  });
+  assert.strictEqual(audioRes.status, 200);
+  const audioData = await audioRes.json();
+  assert.ok(audioData.success);
+  assert.strictEqual(audioData.file.transcript, 'I live in central London and enjoy reading historical literature.');
+
+  // Verify session on disk retained the transcript
+  const sessionOnDisk = sessionManager.getSession(loginData.sessionId);
+  assert.strictEqual(sessionOnDisk.answers.speaking.transcripts.p1_q1, 'I live in central London and enjoy reading historical literature.');
+});

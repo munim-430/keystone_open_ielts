@@ -119,6 +119,7 @@ class SessionManager {
         },
         speaking: {
           notes: '',
+          transcripts: {},
           recordings: []
         }
       }
@@ -126,6 +127,25 @@ class SessionManager {
 
     this.saveSessionMetadata(sessionId, initialSession);
     return initialSession;
+  }
+
+  /**
+   * Finds an active or in-progress session by candidate passport
+   * Allows reconnecting terminals after accidental refresh or PC reboot
+   */
+  findActiveSession(passport) {
+    if (!passport) return null;
+    const cleanPassport = this.sanitizePassport(passport);
+    const sessions = this.listAllSessions();
+    const now = Date.now();
+    const twentyFourHours = 24 * 60 * 60 * 1000;
+
+    return sessions.find(s => {
+      const matchPassport = s.candidate && s.candidate.sanitizedPassport === cleanPassport;
+      const isRecent = (now - new Date(s.createdAt).getTime()) < twentyFourHours;
+      const notFinished = s.status !== 'completed';
+      return matchPassport && isRecent && notFinished;
+    }) || null;
   }
 
   getSessionPath(sessionId) {
@@ -203,6 +223,12 @@ class SessionManager {
       session.moduleProgress.writing.task2Words = (session.answers.writing.task2 || '').trim().split(/\s+/).filter(Boolean).length;
     } else if (moduleName === 'speaking') {
       if (answers.notes !== undefined) session.answers.speaking.notes = answers.notes;
+      if (answers.transcripts !== undefined) {
+        session.answers.speaking.transcripts = {
+          ...(session.answers.speaking.transcripts || {}),
+          ...answers.transcripts
+        };
+      }
     } else {
       session.answers[moduleName] = { ...session.answers[moduleName], ...answers };
     }
@@ -219,7 +245,7 @@ class SessionManager {
     return session;
   }
 
-  saveAudioRecording(sessionId, partName, fileBuffer, mimeType = 'audio/webm') {
+  saveAudioRecording(sessionId, partName, fileBuffer, mimeType = 'audio/webm', transcript = '') {
     const session = this.getSession(sessionId);
     if (!session) throw new Error('Session not found');
 
@@ -238,13 +264,22 @@ class SessionManager {
       filename,
       filepath,
       mimeType,
+      transcript: transcript || '',
       uploadedAt: new Date().toISOString(),
       bytes: fileBuffer.length
     });
+
+    if (transcript) {
+      if (!session.answers.speaking.transcripts) {
+        session.answers.speaking.transcripts = {};
+      }
+      session.answers.speaking.transcripts[partName] = transcript;
+    }
+
     session.moduleProgress.speaking.recordingsCount = session.answers.speaking.recordings.length;
 
     this.saveSessionMetadata(sessionId, session);
-    return { filename, filepath, part: partName };
+    return { filename, filepath, part: partName, transcript };
   }
 
   saveDiagnosticReport(sessionId, diagnosticData) {

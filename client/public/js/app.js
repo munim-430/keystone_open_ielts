@@ -27,6 +27,31 @@ async function initMasterApp() {
     // Start background heartbeat to Host
     startHeartbeatTimer();
 
+    // Check if session was resumed from an in-flight state
+    if (loginResponse.resumed && loginResponse.session) {
+      const s = loginResponse.session;
+      if (s.answers) {
+        if (s.answers.listening) window.IELTS_STATE.answers.listening = { ...s.answers.listening };
+        if (s.answers.reading) window.IELTS_STATE.answers.reading = { ...s.answers.reading };
+        if (s.answers.writing) window.IELTS_STATE.answers.writing = { ...s.answers.writing };
+        if (s.answers.speaking) window.IELTS_STATE.answers.speaking = { ...s.answers.speaking };
+      }
+
+      const targetMod = s.currentModule || 'listening';
+      if (targetMod === 'reading') {
+        startReadingModule();
+      } else if (targetMod === 'writing') {
+        startWritingModule();
+      } else if (targetMod === 'speaking') {
+        startSpeakingModule();
+      } else if (targetMod === 'completed') {
+        finalizeCompleteExam();
+      } else {
+        startListeningModule();
+      }
+      return;
+    }
+
     // Proceed to Sound Check
     window.initSoundCheckModule(() => {
       startListeningModule();
@@ -207,6 +232,12 @@ function jumpToQuestion(qNum) {
   if (currentBadge) {
     currentBadge.classList.add('current');
     currentBadge.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+
+  // If in Listening module, delegate to ListeningModule part switcher
+  if (window.IELTS_STATE.currentModule === 'listening' && window.listeningModuleInstance) {
+    window.listeningModuleInstance.jumpToQuestion(qNum);
+    return;
   }
 
   // Scroll to question card in right pane

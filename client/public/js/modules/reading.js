@@ -225,12 +225,16 @@ function selectReadingMcq(qId, choice, labelEl) {
   updateQuestionBadgeStatus(qId, true);
 }
 
-function applyHighlight(color) {
+function applyHighlight(color, noteText = '') {
   const selection = window.getSelection();
   if (!selection || selection.rangeCount === 0) return;
   const range = selection.getRangeAt(0);
   const span = document.createElement('span');
-  span.className = `highlight-${color}`;
+  span.className = `highlight-${color}${noteText ? ' candidate-note-highlight' : ''}`;
+  if (noteText) {
+    span.title = `Note: ${noteText}`;
+  }
+
   try {
     range.surroundContents(span);
   } catch (e) {
@@ -239,20 +243,66 @@ function applyHighlight(color) {
     span.appendChild(fragment);
     range.insertNode(span);
   }
+
+  if (noteText) {
+    const noteBadge = document.createElement('span');
+    noteBadge.className = 'note-flag';
+    noteBadge.textContent = ' 📝';
+    noteBadge.title = `Note: ${noteText}`;
+    span.appendChild(noteBadge);
+  }
+
   document.getElementById('text-selection-toolbar').style.display = 'none';
   selection.removeAllRanges();
 }
 
 function addNotePrompt() {
   const note = prompt('Enter candidate note:');
-  if (note) {
-    applyHighlight('yellow');
+  if (note && note.trim()) {
+    applyHighlight('yellow', note.trim());
+  } else {
+    const tb = document.getElementById('text-selection-toolbar');
+    if (tb) tb.style.display = 'none';
   }
 }
 
 function clearHighlight() {
-  document.getElementById('text-selection-toolbar').style.display = 'none';
-  window.getSelection().removeAllRanges();
+  const selection = window.getSelection();
+  if (selection && selection.rangeCount > 0) {
+    const range = selection.getRangeAt(0);
+    let container = range.commonAncestorContainer;
+    if (container.nodeType === Node.TEXT_NODE) container = container.parentElement;
+
+    // Check if the container itself is a highlight span
+    const hlSpan = container.closest ? container.closest('[class*="highlight-"]') : null;
+    if (hlSpan) {
+      hlSpan.querySelectorAll('.note-flag').forEach(n => n.remove());
+      const parent = hlSpan.parentNode;
+      while (hlSpan.firstChild) {
+        parent.insertBefore(hlSpan.firstChild, hlSpan);
+      }
+      parent.removeChild(hlSpan);
+    } else {
+      const body = document.getElementById('passage-body-content');
+      if (body) {
+        const spans = body.querySelectorAll('[class*="highlight-"]');
+        spans.forEach(span => {
+          if (selection.containsNode(span, true)) {
+            span.querySelectorAll('.note-flag').forEach(n => n.remove());
+            const parent = span.parentNode;
+            while (span.firstChild) {
+              parent.insertBefore(span.firstChild, span);
+            }
+            parent.removeChild(span);
+          }
+        });
+      }
+    }
+  }
+
+  const tb = document.getElementById('text-selection-toolbar');
+  if (tb) tb.style.display = 'none';
+  if (selection) selection.removeAllRanges();
 }
 
 window.ReadingModule = ReadingModule;

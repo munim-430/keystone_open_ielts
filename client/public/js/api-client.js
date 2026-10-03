@@ -59,10 +59,13 @@ class ApiClient {
     }
   }
 
-  async uploadAudio(sessionId, partName, audioBlob) {
+  async uploadAudio(sessionId, partName, audioBlob, transcript = '') {
     const formData = new FormData();
     formData.append('audio', audioBlob, `${partName}.webm`);
     formData.append('partName', partName);
+    if (transcript) {
+      formData.append('transcript', transcript);
+    }
 
     const res = await fetch(`/api/sessions/${sessionId}/upload-audio`, {
       method: 'POST',

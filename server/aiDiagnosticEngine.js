@@ -22,7 +22,9 @@ const C1_C2_VOCABULARY = new Set([
   'intractable', 'recalibrated', 'autonomous', 'biomimicry', 'counterpart',
   'discrepancy', 'exemplify', 'fluctuate', 'hierarchy', 'infrastructure',
   'intrinsic', 'manifest', 'plausible', 'qualitative', 'quantitative',
-  'reinforce', 'subsequent', 'sustainable', 'tangible', 'underlying'
+  'reinforce', 'subsequent', 'sustainable', 'tangible', 'underlying',
+  'meticulous', 'spearheaded', 'invaluable', 'malfunctioned', 'empathy',
+  'transparent', 'authoritarian', 'residential', 'collaboration'
 ]);
 
 const WEAK_WORDS_MAP = {
@@ -35,8 +37,34 @@ const WEAK_WORDS_MAP = {
   'think': ['posit', 'contend', 'maintain', 'argue'],
   'show': ['illustrate', 'delineate', 'exemplify', 'demonstrate'],
   'get': ['acquire', 'obtain', 'attain', 'derive'],
-  'make': ['fabricate', 'construct', 'synthesize', 'generate']
 };
+
+/**
+ * Robust JSON extraction and parsing helper
+ * Removes reasoning tags (<think>...</think>), markdown codeblocks, and isolates outer JSON
+ */
+function safeJsonParse(rawContent) {
+  if (!rawContent) return null;
+  let str = String(rawContent).trim();
+  // Strip reasoning blocks <think>...</think> from reasoning models (e.g. DeepSeek-R1)
+  str = str.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
+  // Strip markdown codeblock fences e.g. ```json ... ```
+  str = str.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
+  try {
+    return JSON.parse(str);
+  } catch (err) {
+    const start = str.indexOf('{');
+    const end = str.lastIndexOf('}');
+    if (start !== -1 && end !== -1 && end > start) {
+      try {
+        return JSON.parse(str.slice(start, end + 1));
+      } catch (innerErr) {
+        return null;
+      }
+    }
+    return null;
+  }
+}
 
 class AIDiagnosticEngine {
   constructor() {
@@ -57,27 +85,81 @@ class AIDiagnosticEngine {
    * Main entry point to evaluate a full exam session
    */
   async evaluateSession(session, examBank) {
+    try {
+      const examType = session.candidate?.examType || 'Academic';
+      const listeningResults = scoringEngine.evaluateListening(session.answers.listening || {}, examBank.listening);
+      const readingResults = scoringEngine.evaluateReading(session.answers.reading || {}, examBank.reading, examType);
+      
+      // Evaluate Writing (Task 1 & Task 2)
+      const writingResults = await this.evaluateWriting(session.answers.writing || {}, examBank.writing, examType);
+
+      // Evaluate Speaking (Parts 1-3 with transcripts)
+      const speakingResults = await this.evaluateSpeaking(session.answers.speaking || {}, examBank.speaking);
+
+      // Calculate Overall Band using official rounding
+      const overallBand = scoringEngine.calculateOverallBand({
+        listening: listeningResults.bandScore,
+        reading: readingResults.bandScore,
+        writing: writingResults.bandScore,
+        speaking: speakingResults.bandScore
+      });
+
+      // Derive CEFR Level
+      const cefr = this.bandToCEFR(overallBand);
+
+      // Generate Comprehensive Actionable Prescription
+      const diagnosticSummary = this.generateDiagnosticSummary({
+        candidate: session.candidate,
+        listening: listeningResults,
+        reading: readingResults,
+        writing: writingResults,
+        speaking: speakingResults,
+        overallBand,
+        cefr
+      });
+
+      const report = {
+        sessionId: session.sessionId,
+        evaluatedAt: new Date().toISOString(),
+        candidate: session.candidate,
+        overallBandScore: overallBand,
+        cefrLevel: cefr,
+        targetBand: session.candidate.targetBand,
+        targetDifference: (overallBand - session.candidate.targetBand).toFixed(1),
+        moduleScores: {
+          listening: { raw: listeningResults.rawScore, band: listeningResults.bandScore, accuracy: listeningResults.accuracyPercentage },
+          reading: { raw: readingResults.rawScore, band: readingResults.bandScore, accuracy: readingResults.accuracyPercentage },
+          writing: { band: writingResults.bandScore, subScores: writingResults.subScores },
+          speaking: { band: speakingResults.bandScore, subScores: speakingResults.subScores }
+        },
+        listeningEvaluation: listeningResults,
+        readingEvaluation: readingResults,
+        writingEvaluation: writingResults,
+        speakingEvaluation: speakingResults,
+        diagnosticSummary
+      };
+
+      return report;
+    } catch (topErr) {
+      console.warn('AI Diagnostic Engine evaluation encountered an error, falling back to full heuristic:', topErr.message);
+      return this.evaluateSessionHeuristically(session, examBank);
+    }
+  }
+
+  evaluateSessionHeuristically(session, examBank) {
+    const examType = session.candidate?.examType || 'Academic';
     const listeningResults = scoringEngine.evaluateListening(session.answers.listening || {}, examBank.listening);
-    const readingResults = scoringEngine.evaluateReading(session.answers.reading || {}, examBank.reading, session.candidate.examType);
-    
-    // Evaluate Writing (Task 1 & Task 2)
-    const writingResults = await this.evaluateWriting(session.answers.writing || {}, examBank.writing);
+    const readingResults = scoringEngine.evaluateReading(session.answers.reading || {}, examBank.reading, examType);
+    const writingResults = this.evaluateWritingHeuristically(session.answers?.writing?.task1 || '', session.answers?.writing?.task2 || '', examBank.writing, examType);
+    const speakingResults = this.evaluateSpeakingHeuristically(session.answers?.speaking || {}, examBank.speaking);
 
-    // Evaluate Speaking
-    const speakingResults = await this.evaluateSpeaking(session.answers.speaking || {}, examBank.speaking);
-
-    // Calculate Overall Band using official rounding
     const overallBand = scoringEngine.calculateOverallBand({
       listening: listeningResults.bandScore,
       reading: readingResults.bandScore,
       writing: writingResults.bandScore,
       speaking: speakingResults.bandScore
     });
-
-    // Derive CEFR Level
     const cefr = this.bandToCEFR(overallBand);
-
-    // Generate Comprehensive Actionable Prescription
     const diagnosticSummary = this.generateDiagnosticSummary({
       candidate: session.candidate,
       listening: listeningResults,
@@ -88,7 +170,7 @@ class AIDiagnosticEngine {
       cefr
     });
 
-    const report = {
+    return {
       sessionId: session.sessionId,
       evaluatedAt: new Date().toISOString(),
       candidate: session.candidate,
@@ -108,8 +190,6 @@ class AIDiagnosticEngine {
       speakingEvaluation: speakingResults,
       diagnosticSummary
     };
-
-    return report;
   }
 
   bandToCEFR(band) {
@@ -123,14 +203,14 @@ class AIDiagnosticEngine {
   /**
    * Evaluates candidate's Writing responses
    */
-  async evaluateWriting(writingAnswers, writingExam) {
+  async evaluateWriting(writingAnswers, writingExam, examType = 'Academic') {
     const task1Text = (writingAnswers.task1 || '').trim();
     const task2Text = (writingAnswers.task2 || '').trim();
 
     // Check if DeepSeek API configured
     if ((this.provider === 'deepseek' || !this.provider) && this.deepSeekApiKey) {
       try {
-        const result = await this.evaluateWritingWithDeepSeek(task1Text, task2Text, writingExam);
+        const result = await this.evaluateWritingWithDeepSeek(task1Text, task2Text, writingExam, examType);
         if (result && result.bandScore) return result;
       } catch (err) {
         console.warn('DeepSeek Writing evaluation failed, trying fallback:', err.message);
@@ -156,22 +236,26 @@ class AIDiagnosticEngine {
     }
 
     // Default: High-fidelity Offline Heuristic Engine
-    return this.evaluateWritingHeuristically(task1Text, task2Text, writingExam);
+    return this.evaluateWritingHeuristically(task1Text, task2Text, writingExam, examType);
   }
 
   /**
    * DeepSeek API caller for Writing evaluation
    */
-  async evaluateWritingWithDeepSeek(task1, task2, exam) {
+  async evaluateWritingWithDeepSeek(task1, task2, exam, examType = 'Academic') {
+    const isGeneral = examType === 'General' || (exam.tasks && exam.tasks[0] && exam.tasks[0].type === 'letter');
+    const examModeName = isGeneral ? 'IELTS General Training Writing' : 'IELTS Academic Writing';
+    const task1Name = isGeneral ? 'Task 1 Letter (minimum 150 words)' : 'Task 1 Academic Report (minimum 150 words)';
+
     const prompt = `You are a certified Cambridge/IDP IELTS Senior Examiner.
-Evaluate the following candidate submissions for IELTS Academic Writing according to the official IELTS Band Descriptors:
+Evaluate the following candidate submissions for ${examModeName} according to official IELTS Band Descriptors:
 1. Task Achievement / Task Response (TR/TA)
 2. Coherence and Cohesion (CC)
 3. Lexical Resource (LR)
 4. Grammatical Range and Accuracy (GRA)
 
 ---
-TASK 1 PROMPT:
+TASK 1 PROMPT (${task1Name}):
 ${exam.tasks[0].prompt}
 
 CANDIDATE TASK 1 SUBMISSION:
@@ -180,7 +264,7 @@ ${task1 || '(No Task 1 text submitted)'}
 """
 
 ---
-TASK 2 PROMPT:
+TASK 2 PROMPT (Essay - minimum 250 words):
 ${exam.tasks[1].prompt}
 
 CANDIDATE TASK 2 SUBMISSION:
@@ -229,7 +313,7 @@ Output ONLY a single valid JSON object strictly matching this schema:
       body: JSON.stringify({
         model: config.DEEPSEEK_MODEL || 'deepseek-chat',
         messages: [
-          { role: 'system', content: 'You are an official Cambridge IELTS Writing Examiner. You evaluate essays with rigorous adherence to official band descriptors and return strictly JSON.' },
+          { role: 'system', content: `You are an official Cambridge ${examModeName} Examiner. You evaluate submissions with rigorous adherence to official band descriptors and return strictly JSON.` },
           { role: 'user', content: prompt }
         ],
         response_format: { type: 'json_object' },
@@ -243,7 +327,7 @@ Output ONLY a single valid JSON object strictly matching this schema:
 
     const data = await res.json();
     const content = data.choices[0].message.content;
-    const parsed = JSON.parse(content);
+    const parsed = safeJsonParse(content);
     parsed.evaluatorMode = 'deepseek-' + (config.DEEPSEEK_MODEL || 'chat');
     return parsed;
   }
@@ -254,11 +338,12 @@ Output ONLY a single valid JSON object strictly matching this schema:
   async evaluateSpeaking(speakingAnswers, speakingExam) {
     const recordings = speakingAnswers.recordings || [];
     const notes = speakingAnswers.notes || '';
+    const transcripts = speakingAnswers.transcripts || {};
 
-    // If DeepSeek available and notes/transcripts present
-    if ((this.provider === 'deepseek' || !this.provider) && this.deepSeekApiKey && (notes || recordings.length > 0)) {
+    // If DeepSeek available and notes/transcripts/recordings present
+    if ((this.provider === 'deepseek' || !this.provider) && this.deepSeekApiKey && (notes || recordings.length > 0 || Object.keys(transcripts).length > 0)) {
       try {
-        const result = await this.evaluateSpeakingWithDeepSeek(notes, recordings, speakingExam);
+        const result = await this.evaluateSpeakingWithDeepSeek(notes, recordings, transcripts, speakingExam);
         if (result && result.bandScore) return result;
       } catch (err) {
         console.warn('DeepSeek Speaking evaluation failed, falling back to heuristic:', err.message);
@@ -269,22 +354,60 @@ Output ONLY a single valid JSON object strictly matching this schema:
   }
 
   /**
-   * DeepSeek API caller for Speaking evaluation
+   * DeepSeek API caller for Speaking evaluation with transcripts
    */
-  async evaluateSpeakingWithDeepSeek(notes, recordings, exam) {
-    const prompt = `You are a certified Cambridge/IDP IELTS Speaking Examiner.
-Evaluate candidate speaking performance across Parts 1, 2, and 3.
-Candidate completed ${recordings.length} audio response parts.
-Candidate's Part 2 preparation notepad content:
-"""
-${notes || '(No notes entered)'}
-"""
+  async evaluateSpeakingWithDeepSeek(notesOrAnswers, recordingsOrExam, transcripts, exam) {
+    let notes = '';
+    let recordings = [];
+    let transcriptMap = {};
+    let examObj = exam;
 
-Evaluate across the four official criteria:
+    if (notesOrAnswers && typeof notesOrAnswers === 'object' && (notesOrAnswers.recordings || notesOrAnswers.transcripts || notesOrAnswers.notes !== undefined)) {
+      notes = notesOrAnswers.notes || '';
+      recordings = Array.isArray(notesOrAnswers.recordings) ? notesOrAnswers.recordings : [];
+      transcriptMap = notesOrAnswers.transcripts || {};
+      examObj = recordingsOrExam;
+    } else {
+      notes = notesOrAnswers || '';
+      recordings = Array.isArray(recordingsOrExam) ? recordingsOrExam : [];
+      transcriptMap = transcripts || {};
+      examObj = exam;
+    }
+
+    let transcriptBlock = '';
+    const transcriptEntries = Object.entries(transcriptMap || {});
+    if (transcriptEntries.length > 0) {
+      transcriptBlock = transcriptEntries.map(([k, t]) => `[PART ${k} TRANSCRIPT]:\n"${t}"`).join('\n\n');
+    } else {
+      const recList = Array.isArray(recordings) ? recordings : [];
+      transcriptBlock = `(Candidate completed ${recList.length} audio response parts: ${recList.map(r => r.part || r.filename || 'part').join(', ')})`;
+    }
+
+    const prompt = `You are a certified Cambridge/IDP IELTS Speaking Senior Examiner.
+Evaluate candidate speaking performance across Parts 1, 2, and 3 according to the official IELTS Band Descriptors:
 1. Fluency and Coherence (FC)
 2. Lexical Resource (LR)
 3. Grammatical Range and Accuracy (GRA)
 4. Pronunciation (PR)
+
+EXAM STRUCTURE:
+- Part 1: ${examObj && examObj.parts && examObj.parts[0] ? examObj.parts[0].title : 'Introduction & Interview'}
+- Part 2 Cue Card Topic: ${examObj && examObj.parts && examObj.parts[1] && examObj.parts[1].cueCard ? examObj.parts[1].cueCard.topic : 'Cue Card Long Turn'}
+- Part 3: ${examObj && examObj.parts && examObj.parts[2] ? examObj.parts[2].title : 'Two-Way Discussion'}
+
+CANDIDATE PART 2 NOTEPAD CONTENT (1-min prep):
+"""
+${notes || '(No notes entered)'}
+"""
+
+CANDIDATE SPOKEN TRANSCRIPTS:
+"""
+${transcriptBlock}
+"""
+
+Evaluate across the four official criteria (1.0 to 9.0 in 0.5 increments).
+Calculate overall Speaking Band (average of FC, LR, GRA, PR rounded to nearest 0.5 band).
+Provide detailed diagnostic observations, grammar points, and fluency advice based on the candidate's actual speech.
 
 Output ONLY a valid JSON object matching this schema:
 {
@@ -297,12 +420,13 @@ Output ONLY a valid JSON object matching this schema:
     "pronunciation": 6.5
   },
   "diagnosticPoints": [
-    "Observation 1 regarding fluency and turn-taking",
-    "Observation 2 regarding topical vocabulary and prep notes"
+    "Observation 1 regarding fluency, pacing, and discourse markers",
+    "Observation 2 regarding lexical choice and idiomatic language",
+    "Observation 3 regarding grammatical structures used"
   ],
   "fluencyTips": [
-    "Actionable tip 1",
-    "Actionable tip 2"
+    "Actionable fluency/pronunciation tip 1",
+    "Actionable fluency/pronunciation tip 2"
   ],
   "evaluatorMode": "deepseek-chat"
 }`;
@@ -330,30 +454,40 @@ Output ONLY a valid JSON object matching this schema:
 
     const data = await res.json();
     const content = data.choices[0].message.content;
-    const parsed = JSON.parse(content);
+    const parsed = safeJsonParse(content);
     parsed.evaluatorMode = 'deepseek-' + (config.DEEPSEEK_MODEL || 'chat');
     return parsed;
   }
 
   /**
-   * Offline Local Heuristic Evaluation for Writing
+   * Offline Local Heuristic Evaluation for Writing (Academic Report or General Letter + Task 2 Essay)
    */
-  evaluateWritingHeuristically(task1Text, task2Text, writingExam) {
+  evaluateWritingHeuristically(task1Text, task2Text, writingExam, examType = 'Academic') {
     const t1Words = task1Text ? task1Text.split(/\s+/).filter(Boolean) : [];
     const t2Words = task2Text ? task2Text.split(/\s+/).filter(Boolean) : [];
 
     const t1Count = t1Words.length;
     const t2Count = t2Words.length;
 
-    // --- Task 1 Analysis (Academic Report) ---
+    const isLetter = examType === 'General' || (writingExam?.tasks?.[0]?.type === 'letter');
+
+    // --- Task 1 Analysis (Academic Report or GT Letter) ---
     let t1TA = 6.0;
     if (t1Count < 100) t1TA = 4.0;
     else if (t1Count < 140) t1TA = 5.0;
     else if (t1Count >= 150) {
-      const hasOverview = /(overall|in summary|it is noticeable that|broadly speaking)/i.test(task1Text);
-      const hasNumbers = /\b\d+(\.\d+)?%?\b/.test(task1Text);
-      if (hasOverview && hasNumbers && t1Count >= 160) t1TA = 7.5;
-      else if (hasOverview || hasNumbers) t1TA = 6.5;
+      if (isLetter) {
+        const hasSalutation = /(dear\s+(sir|madam|mr|ms|mrs|friend|all|property\s+manager)|to\s+whom)/i.test(task1Text);
+        const hasPurpose = /(i\s+am\s+writing|purpose\s+of\s+this\s+letter|bring\s+to\s+your\s+attention|express\s+my)/i.test(task1Text);
+        const hasSignoff = /(yours\s+faithfully|yours\s+sincerely|warm\s+regards|best\s+regards|sincerely)/i.test(task1Text);
+        if (hasSalutation && hasPurpose && hasSignoff && t1Count >= 160) t1TA = 7.5;
+        else if (hasSalutation || hasPurpose) t1TA = 6.5;
+      } else {
+        const hasOverview = /(overall|in summary|it is noticeable that|broadly speaking)/i.test(task1Text);
+        const hasNumbers = /\b\d+(\.\d+)?%?\b/.test(task1Text);
+        if (hasOverview && hasNumbers && t1Count >= 160) t1TA = 7.5;
+        else if (hasOverview || hasNumbers) t1TA = 6.5;
+      }
     }
 
     const t1Paragraphs = task1Text.split(/\n\s*\n/).filter(p => p.trim().length > 0);
@@ -362,12 +496,12 @@ Output ONLY a valid JSON object matching this schema:
     const t1AWLMatches = t1Words.map(w => w.toLowerCase().replace(/[^a-z]/g, '')).filter(w => C1_C2_VOCABULARY.has(w));
     let t1LR = t1AWLMatches.length >= 6 ? 7.5 : (t1AWLMatches.length >= 3 ? 6.5 : 5.5);
 
-    const t1ComplexStructures = (task1Text.match(/\b(while|whereas|although|compared to|in comparison|as opposed to|experienced a significant)\b/gi) || []).length;
+    const t1ComplexStructures = (task1Text.match(/\b(while|whereas|although|compared to|in comparison|as opposed to|experienced a significant|request that|appreciate it if)\b/gi) || []).length;
     let t1GRA = t1ComplexStructures >= 3 ? 7.0 : (t1ComplexStructures >= 1 ? 6.0 : 5.0);
 
     const task1Band = Math.round(((t1TA + t1CC + t1LR + t1GRA) / 4) * 2) / 2;
 
-    // --- Task 2 Analysis (Academic Essay) ---
+    // --- Task 2 Analysis (Academic / General Essay) ---
     let t2TR = 6.0;
     if (t2Count < 180) t2TR = 4.5;
     else if (t2Count < 230) t2TR = 5.5;
@@ -414,7 +548,10 @@ Output ONLY a valid JSON object matching this schema:
       identifiedGrammarCheckpoints.push(`Task 2 word count (${t2Count} words) is below the official 250-word minimum; this incurs a direct penalty on Task Response.`);
     }
     if (t1Paragraphs.length < 3) {
-      identifiedGrammarCheckpoints.push('Task 1 should be clearly partitioned into 3 or 4 paragraphs: Introduction, Overview, and 1-2 Detailed Body paragraphs.');
+      identifiedGrammarCheckpoints.push(isLetter 
+        ? 'Task 1 Letter requires a 3-part layout: Opening Purpose, Detailed Bullet Point elaboration, and Formal Closing request.'
+        : 'Task 1 Report should be clearly partitioned into 3 or 4 paragraphs: Introduction, Overview, and 1-2 Detailed Body paragraphs.'
+      );
     }
     if (t2Paragraphs.length < 4) {
       identifiedGrammarCheckpoints.push('Task 2 essay requires a 4-paragraph structure: Introduction (with Thesis), Body 1 (View A), Body 2 (View B/Own View), and Conclusion.');
@@ -423,6 +560,7 @@ Output ONLY a valid JSON object matching this schema:
     return {
       bandScore: writingBand,
       task1: {
+        type: isLetter ? 'letter' : 'report',
         wordCount: t1Count,
         meetsMinimum: t1Count >= 150,
         bandScore: task1Band,
@@ -459,26 +597,56 @@ Output ONLY a valid JSON object matching this schema:
   evaluateSpeakingHeuristically(speakingAnswers, speakingExam) {
     const recordings = speakingAnswers.recordings || [];
     const notes = speakingAnswers.notes || '';
+    const transcripts = speakingAnswers.transcripts || {};
 
     const totalRecordings = recordings.length;
     const notesLength = notes.trim().length;
 
+    // Analyze actual candidate transcripts when available
+    const fullTranscript = Object.values(transcripts).join(' ');
+    const spokenWords = fullTranscript ? fullTranscript.split(/\s+/).filter(Boolean) : [];
+    const wordCount = spokenWords.length;
+
     let fc = 6.0;
-    if (totalRecordings >= 6) fc = 7.0;
-    else if (totalRecordings >= 3) fc = 6.0;
-    else if (totalRecordings >= 1) fc = 5.0;
+    if (wordCount >= 200 || totalRecordings >= 6) fc = 7.5;
+    else if (wordCount >= 120 || totalRecordings >= 4) fc = 7.0;
+    else if (wordCount >= 60 || totalRecordings >= 2) fc = 6.5;
+    else if (wordCount >= 30 || totalRecordings >= 1) fc = 5.5;
     else fc = 4.0;
 
     let lr = 6.0;
-    if (notesLength > 100) lr = 7.0;
-    else if (notesLength > 30) lr = 6.5;
+    const awlInSpeech = spokenWords.map(w => w.toLowerCase().replace(/[^a-z]/g, '')).filter(w => C1_C2_VOCABULARY.has(w));
+    if (awlInSpeech.length >= 5 || notesLength > 100) lr = 7.5;
+    else if (awlInSpeech.length >= 3 || notesLength > 40) lr = 7.0;
+    else if (awlInSpeech.length >= 1) lr = 6.5;
 
     let gra = 6.0;
-    if (totalRecordings >= 5) gra = 6.5;
+    const complexSpeech = (fullTranscript.match(/\b(because|although|whereas|if|when|furthermore|in order to|as a result|rather than|which|that|while|since|despite|during|before|after)\b/gi) || []).length;
+    if (complexSpeech >= 3 || (complexSpeech >= 2 && totalRecordings >= 4)) gra = 7.0;
+    else if (complexSpeech >= 1 || totalRecordings >= 3) gra = 6.5;
 
     let pr = 6.5;
+    if (fc >= 7.0 && lr >= 7.0) pr = 7.0;
 
     const speakingBand = Math.round(((fc + lr + gra + pr) / 4) * 2) / 2;
+
+    const points = [];
+    if (wordCount > 0) {
+      points.push(`Candidate speech transcript captured: ${wordCount} words spoken across evaluated turns.`);
+      if (awlInSpeech.length > 0) {
+        points.push(`Effective academic/C1 vocabulary noted in spoken responses: "${awlInSpeech.slice(0, 4).join('", "')}".`);
+      }
+    } else {
+      points.push(totalRecordings >= 6 
+        ? 'Comprehensive responses submitted across Parts 1, 2, and 3 demonstrate consistent communicative stamina.'
+        : 'Incomplete recording parts detected; aim to deliver a continuous 2-minute response for Part 2 Long Turn.');
+    }
+
+    if (notesLength > 40) {
+      points.push('Effective use of the 1-minute Part 2 preparation notepad, reflecting solid pre-speech outlining.');
+    } else {
+      points.push('Underutilization of the 1-minute Part 2 preparation timer; jotting down key vocabulary connectors beforehand prevents hesitation.');
+    }
 
     return {
       bandScore: speakingBand,
@@ -489,14 +657,7 @@ Output ONLY a valid JSON object matching this schema:
         grammaticalRange: gra,
         pronunciation: pr
       },
-      diagnosticPoints: [
-        totalRecordings >= 6 
-          ? 'Comprehensive responses submitted across Parts 1, 2, and 3 demonstrate consistent communicative stamina.'
-          : 'Incomplete recording parts detected; aim to deliver a continuous 2-minute response for Part 2 Long Turn.',
-        notesLength > 40
-          ? 'Effective use of the 1-minute Part 2 preparation notepad, reflecting solid pre-speech outlining.'
-          : 'Underutilization of the 1-minute Part 2 preparation timer; jotting down key vocabulary connectors beforehand prevents hesitation.'
-      ],
+      diagnosticPoints: points,
       fluencyTips: [
         'Use signposting transitions when moving between ideas (e.g. "From an economic perspective...", "Another dimension to consider is...").',
         'Avoid prolonged mid-clause silence; bridge brief pauses with natural discourse fillers like "Well, that is an intriguing angle..."'
@@ -611,11 +772,14 @@ Return ONLY valid JSON matching schema:
 
     if (!res.ok) throw new Error(`Groq API error ${res.status}`);
     const data = await res.json();
-    return JSON.parse(data.choices[0].message.content);
+    const content = data.choices[0].message.content;
+    const parsed = safeJsonParse(content);
+    parsed.evaluatorMode = 'groq-' + (config.GROQ_CHAT_MODEL || 'llama-3.3-70b');
+    return parsed;
   }
 
   async evaluateWritingWithOpenRouter(task1, task2, exam) {
-    const prompt = `Evaluate IELTS Academic Writing. Task 1: ${task1}. Task 2: ${task2}. Return valid JSON only.`;
+    const prompt = `Evaluate IELTS Writing. Task 1: ${task1}. Task 2: ${task2}. Return valid JSON only with bandScore, task1, task2, subScores.`;
     const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -632,12 +796,13 @@ Return ONLY valid JSON matching schema:
     if (!res.ok) throw new Error(`OpenRouter API error ${res.status}`);
     const data = await res.json();
     const content = data.choices[0].message.content;
-    const jsonMatch = content.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error('No JSON found in OpenRouter response');
-    const parsed = JSON.parse(jsonMatch[0]);
+    const parsed = safeJsonParse(content);
     parsed.evaluatorMode = 'openrouter-' + config.OPENROUTER_MODEL;
     return parsed;
   }
 }
 
-module.exports = new AIDiagnosticEngine();
+const engineInstance = new AIDiagnosticEngine();
+engineInstance.safeJsonParse = safeJsonParse;
+
+module.exports = engineInstance;

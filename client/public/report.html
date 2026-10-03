@@ -74,22 +74,27 @@
           return;
         }
 
-        let fullHtml = '';
-        for (const term of completed) {
-          try {
-            const scoreRes = await fetch(`/api/sessions/${term.sessionId}/scorecard`);
-            const scoreData = await scoreRes.json();
-            if (scoreData.success && scoreData.report) {
-              fullHtml += `
-                <div class="scorecard-page page-break" style="margin-bottom:30px;">
-                  ${buildScorecardHtml(scoreData.report)}
-                </div>
-              `;
+        const results = await Promise.all(
+          completed.map(async (term) => {
+            try {
+              const scoreRes = await fetch(`/api/sessions/${term.sessionId}/scorecard`);
+              const scoreData = await scoreRes.json();
+              if (scoreData.success && scoreData.report) {
+                return `
+                  <div class="scorecard-page page-break" style="margin-bottom:30px;">
+                    ${buildScorecardHtml(scoreData.report)}
+                  </div>
+                `;
+              }
+            } catch (e) {
+              console.warn(`Failed loading scorecard for session ${term.sessionId}:`, e);
             }
-          } catch (e) {}
-        }
+            return '';
+          })
+        );
 
-        host.innerHTML = fullHtml;
+        const rendered = results.filter(Boolean).join('');
+        host.innerHTML = rendered || '<div style="text-align:center; padding:50px; background:#fff; border-radius:6px;">No valid scorecard reports found for completed sessions.</div>';
       } catch (err) {
         host.innerHTML = `<div style="text-align:center; padding:40px; color:#cf222e;">Error loading batch: ${err.message}</div>`;
       }

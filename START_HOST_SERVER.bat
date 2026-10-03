@@ -32,9 +32,8 @@ if not exist "node_modules\" (
 
 :: 3. Find Host Local IP Address
 echo [*] Detecting Local Area Network (LAN) IP Address...
-for /f "tokens=4" %%a in ('route print^|findstr 0.0.0.0^|findstr /v "0.0.0.0/0"') do (
-    set LOCAL_IP=%%a
-)
+for /f "tokens=*" %%i in ('node -e "const os = require('os'); const ifaces = os.networkInterfaces(); let ip = ''; for (const name of Object.keys(ifaces)) { if (/virtual|vmware|vbox|vethernet|wsl/i.test(name)) continue; for (const iface of ifaces[name]) { if (iface.family === 'IPv4' && !iface.internal) { ip = iface.address; break; } } if (ip) break; } console.log(ip || 'localhost');"') do set LOCAL_IP=%%i
+if "%LOCAL_IP%"=="" set LOCAL_IP=localhost
 
 echo.
 echo =======================================================================
